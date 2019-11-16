@@ -1,0 +1,44 @@
+.header-content{
+    margin:0 6em 0 6em;
+    position: fixed;
+    top: 0;
+}
+.menu-section{
+    background-color:#f7f7f7;
+    padding:1em;
+    display: flex;
+    flex-wrap:nowrap;
+    justify-content: space-between;
+    height:5.3em;
+}
+
+.menu-section .logo img{
+    margin-top:-1.2em;
+    height: 5.3em;
+    width: 5.3em;
+    margin-left: 1em;
+}
+.menu-links{
+    margin-top:0.5em;
+    margin-left:20em;
+    text-decoration: none;
+    display:flex;
+    justify-content:space-between;
+    margin-right: 1em;
+}
+.link{
+    align-self: center !important;
+    font-size:1.2em !important;
+    background-color: #e4602c !important;
+    color:#ffffff !important;
+    padding: 1em !important;
+    border: 1px solid #ffffff !important;
+    border-radius:8px !important;
+    margin-left:1.6em !important;
+    width:9em !important;
+    text-align: center !important;
+}
+
+.link:hover{
+    color:#ffffff;
+}

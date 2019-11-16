@@ -1,0 +1,59 @@
+.bunkAssist-div{
+    scroll-behavior: smooth;
+}
+
+.bunkAssist-section{
+    display : flex;
+    flex-direction: column;
+    margin-top : 0px;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100vh;
+    background-image: url('../Resources/images/bunkAssist.jpg');
+    background-repeat:no-repeat;
+	background-size: cover;
+    background-attachment: fixed;
+    margin-bottom:1em;
+}
+
+.ui.three.item.menu{
+    width:100%;
+    position:fixed;
+    top:0;
+}
+
+.heading-content{
+    color:#ffffff;
+    size: 400;
+    font-size: 35px;
+}
+
+.bunk-assist-form{
+    background-color: #ffffff;
+    margin : 2em;
+    margin-top: 1em;
+    padding : 3em;
+    border : 1px solid #ffffff;
+    border-radius: 5px;
+    width:30%;
+    -webkit-box-shadow: 0.275em 0.525em 0.1em #aaaaaa;
+    -moz-box-shadow: 0.275em 0.525em 0.1em #aaaaaa;
+    box-shadow: 0.275em 0.525em 0.1em #aaaaaa;
+}
+
+.can-bunk{
+    margin : 2em;
+}
+
+.short-attendence{
+    margin : 2em;
+}
+
+.exact{
+    margin : 2em;
+}
+
+.invalid-input{
+    margin : 2em;
+}

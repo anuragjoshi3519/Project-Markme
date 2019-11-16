@@ -1,0 +1,38 @@
+.onlineSuite-section{
+    display:flex;
+    display: row;
+    height:100vh;
+    align-items: center;
+}
+.onlineSuite-left{
+    display:flex;
+    flex-direction: column;
+    width:50%;
+    height:100vh;
+    background-image: url('../Resources/images/homepageOnlineSuite.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
+
+.onlineSuite-left-title{
+    color: #ffffff;
+    text-align: center;
+    font-size: 5em;
+    font-weight: 500;
+    margin-bottom: 1em;
+
+}
+
+.onlineSuite-right{
+    font-family: 'Lato', Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif;
+    width:50%;
+    color:#948d8d;
+    font-size:2.1em;
+    font-weight:300;
+    text-align: center;
+    margin-left: 3em;
+    margin-right: 3em;
+}

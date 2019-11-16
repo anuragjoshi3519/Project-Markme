@@ -1,0 +1,15 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Lato', Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif;
+    text-rendering:optimizeLegibility;
+    color:white;
+    font-weight:400px;
+    text-align:center;
+    line-height: 130%;
+} 
+html,body{
+    height:100%;
+    margin:0;
+    background-color:#ffffff;
+    scroll-behavior: smooth;
+}

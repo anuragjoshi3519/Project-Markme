@@ -1,0 +1,38 @@
+.bunkAssistDetails-section{
+    display:flex;
+    display: row;
+    height:100vh;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.bunkAssistDetails-left{
+    display:flex;
+    flex-direction: column;
+    width:50%;
+    height:100vh;
+    background-image: url('../Resources/images/bunkAssistDetails.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
+
+.bunkAssistDetails-left-title{
+    color: #ffffff;
+    text-align: center;
+    font-size: 5em;
+    font-weight: 500;
+    margin-bottom: 1em;
+}
+
+.bunkAssistDetails-right{
+    font-family: 'Lato', Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif;
+    color:#948d8d;
+    width:50%;
+    font-size:2.1em;
+    font-weight:300;
+    text-align: center;
+    margin-left: 3em;
+    margin-right: 3em;
+}
