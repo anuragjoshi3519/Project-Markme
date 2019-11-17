@@ -203,8 +203,23 @@ app.get('/checkattendanceteacher',(req,res)=>{
 
 
 
-//--> markAttendance
-//1. for each table entry, if entry = 'A' (by default entry is 'P') then execute the following
+//--> markAttendance --> use getbatches first to select class_id to take attendance
+//1. list of students to take attendance
+app.get('/studentlistforattendance',(req,res)=>{
+    const {class_id} = req.query
+    const SELECT_QUERY = `select reg_no, first_name, last_name from student join batch_attends_class on student.batch_id = batch_attends_class.batch_id where class_id = ${class_id}`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+//2. for each table entry, if entry = 'A' (by default entry is 'P') then execute the following
 app.get('/markattendance',(req,res)=>{
     const {reg_no, class_id, entry, no_of_hours} = req.query
     const SELECT_QUERY = `INSERT INTO attendance VALUES (NULL, '${reg_no}', '${class_id}', '${entry}', '${no_of_hours}');`;
@@ -219,7 +234,7 @@ app.get('/markattendance',(req,res)=>{
         }
     })
 })
-//2. for updation of number_of_classes conducted  --- **QUERY IS CORRECT, FIGURE OUT HOW TO USE UPDATE QUERY IN NODE**
+//3. for updation of number_of_classes conducted  --- **QUERY IS CORRECT, FIGURE OUT HOW TO USE UPDATE QUERY IN NODE**
 app.get('/updateclasses',(req,res)=>{
     const {class_id, no_of_hours, number_of_classes} = req.query
     const SELECT_QUERY = `UPDATE class SET number_of_classes = (${no_of_hours} + ${number_of_classes}) where class_id = ${class_id}`;

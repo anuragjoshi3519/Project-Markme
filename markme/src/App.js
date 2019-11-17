@@ -8,7 +8,7 @@ import Profile from './ProfileComponents/Profile'
 import HomePage from './homePageComponent/HomePage'
 import CheckAttendance from './checkAttendanceComponent/CheckAttendance'
 import PreviousAttendance from './previousAttendanceComponent/PreviousAttendance'
-import MarkAtendance from './markAttendanceComponent/MarkAtendance'
+import MarkAtendance from './markAttendanceComponent/MarkAttendance'
 import ViewTimeTable from './viewTimeTableComponent/ViewTimeTable'
 
 const App = ()=>{
