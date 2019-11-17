@@ -68,6 +68,8 @@ class ContactCard extends React.Component{
                     </div>
                     <button className="ui orange submit button" style={{marginTop:'0.8em',width:'100%'}}>Send Message</button>
                 </form>
+
+                <script data-cfasync="false" type="text/javascript" src="../Resources/scripts/form-submission-handler.js"></script>
             </div>
         )
     }
