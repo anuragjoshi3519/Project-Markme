@@ -3,9 +3,6 @@ import "../css/checkAttendance.css"
 
 function TableEntry(props)
 {
-    const percentage = (props.attended/props.conducted)*100;
-    const roundPercentage = percentage.toFixed(2)
-
     return(
         <div>
             <table class="ui fixed single line celled table">
@@ -13,7 +10,7 @@ function TableEntry(props)
                     <td className="subjects">{props.subject}</td>
                     <td>{props.conducted}</td>
                     <td>{props.attended}</td>
-                    <td>{roundPercentage}</td>
+                    <td>{props.percentage}</td>
                 </tr>
             </table>
         </div>

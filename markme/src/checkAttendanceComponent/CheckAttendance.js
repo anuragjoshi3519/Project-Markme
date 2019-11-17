@@ -6,15 +6,25 @@ class CheckAttendance extends Component{
     constructor(){
         super()
         this.state = {
+            attendance:[],
             isLoading : false
         }
     }
 
+    componentDidMount(){
+        const username = this.props.location.state.username
+        fetch(`http://localhost:4000/checkattendancestudent?username=${username}`)
+            .then(response => response.json())
+            .then(response=>{
+                this.setState({attendance:response.data})    
+            })
+            .catch(err=>console.error(err))
+    }
 
     checkAttendanceHeading(){
         return(
             <div>
-                <table class="ui fixed single line celled table">
+                <table className="ui fixed single line celled table">
                     <thead>
                         <tr>
                             <th>Subject</th>
@@ -32,7 +42,7 @@ class CheckAttendance extends Component{
         return(
             <div className="attendance-table-section">
                 {this.checkAttendanceHeading()}
-                <AttendanceEntry username={this.props.location.state.username}/>
+                <AttendanceEntry attendance={this.state.attendance} option='checkattendance'/>
             </div>
         )
     }
