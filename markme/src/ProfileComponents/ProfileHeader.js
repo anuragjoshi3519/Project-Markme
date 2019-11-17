@@ -25,7 +25,10 @@ class ProfileHeader extends Component{
                             </div>
                         </div>
                     </div>
-                    <Link className='link' to='/login'>Logout</Link>
+                    <Link className='link' to={{pathname: '/login',
+                                                hash: '',
+                                                state: { username:"" }
+                                                }}> Logout</Link>
                 </div>
             </div>
         )

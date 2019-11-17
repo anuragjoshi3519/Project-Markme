@@ -3,6 +3,7 @@ import LoginHeader from './LoginHeader'
 import Footer from '../Footer'
 import "../css/login.css"
 import ContactCard from '../homePageComponent/ContactCard'
+import { userInfo } from 'os'
 class Login extends Component{
     constructor(){
         super()
@@ -82,7 +83,7 @@ class Login extends Component{
                 this.props.history.push({
                 pathname: '/userprofile/',
                 hash: `${username}`,
-                state: { username }
+                state: { username:usersInfo[i].username,account:usersInfo[i].account_type }
             })
                 flag=1
             }
