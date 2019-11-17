@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:'mark_me'
+    database:'MarkMe'
 })
 
 connection.connect((err)=>{
@@ -135,8 +135,8 @@ app.get('/teachersubjects',(req,res)=>{
 
 //--this for previousattendance module of student --> needs username and sem to render the attendance details
 app.get('/previousattendance',(req,res)=>{
-    const {username} = req.query
-    const SELECT_QUERY = `SELECT subject_name, number_of_classes, percentage from attendance_percentage join class on attendance_percentage.class_id = class.class_id where reg_no = '${username}'`;
+    const {username,sem} = req.query
+    const SELECT_QUERY = `SELECT subject_name, number_of_classes, percentage from attendance_percentage join class on attendance_percentage.class_id = class.class_id where reg_no = '${username}' and taught_in_semester = '${sem}'`;
     connection.query(SELECT_QUERY,(err,results)=>{
         if(err){
             return res.send(err)
@@ -148,14 +148,12 @@ app.get('/previousattendance',(req,res)=>{
         }
     })
 })
-
-
 
 
 //--this is for checkAttendance module for students --> needs username
 app.get('/checkattendancestudent',(req,res)=>{
     const {username} = req.query
-    const SELECT_QUERY = `SELECT subject_name, number_of_classes, sum(no_of_hours) from running_classes join class on running_classes.class_id = class.class_id where reg_no = '${username}' and running_classes.class_id in (Select class_id from batch_attends_class where batch_id = (Select batch_id from student where reg_no = '${username}')) and entry = 'P'`;
+    const SELECT_QUERY = `SELECT subject_name, number_of_classes, sum(no_of_hours) as classes_attended from running_classes join class on running_classes.class_id = class.class_id where reg_no = '${username}' and entry = 'P' group by class.class_id;`;
     connection.query(SELECT_QUERY,(err,results)=>{
         if(err){
             return res.send(err)
@@ -167,7 +165,6 @@ app.get('/checkattendancestudent',(req,res)=>{
         }
     })
 })
-
 
 
 

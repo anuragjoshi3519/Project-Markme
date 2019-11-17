@@ -7,12 +7,23 @@ import "../css/checkPreviousAttendance.css"
 class PreviousAttendance extends Component{
     constructor(){
         super()
-        this.state = { 
-            sem : "Semester 1"
+        this.state = {
+            sem:1,
+            attendence:[]
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.tabularCreation = this.tabularCreation.bind(this)
+    }
+
+    componentDidMount(){
+        const username = this.props.location.state.username
+        fetch(`http://localhost:4000/previousattendance?username=${username}&sem=${this.state.sem}`)
+            .then(response => response.json())
+            .then(response=>{
+                this.setState({attendence:response.data})    
+            })
+            .catch(err=>console.error(err))
     }
 
     handleChange(event){
