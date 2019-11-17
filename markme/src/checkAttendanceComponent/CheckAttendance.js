@@ -32,7 +32,7 @@ class CheckAttendance extends Component{
         return(
             <div className="attendance-table-section">
                 {this.checkAttendanceHeading()}
-                <AttendanceEntry />
+                <AttendanceEntry username={this.props.location.state.username}/>
             </div>
         )
     }
