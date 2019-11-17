@@ -26,7 +26,7 @@ class ContactCard extends React.Component{
         return(
             <div id='contact-card' className ='contact-card'>
                 <p className='contact-message'>Tell us how we can help you.</p>
-                <form className="contact-form ui form" onSubmit={this.handleSubmit}>
+                <form className="contact-form ui form gform" method="POST" action="https://script.google.com/macros/s/AKfycbwzVn8arZf96bWKTIvjYtc-GOPaavMyFo8AzE4lOlIo5GWBcYg/exec">
                     <div className="field">
                         <label>Name</label>
                         <div className="ui left icon input">
@@ -67,6 +67,9 @@ class ContactCard extends React.Component{
                         </div>
                     </div>
                     <button className="ui orange submit button" style={{marginTop:'0.8em',width:'100%'}}>Send Message</button>
+                    <div style={{display:'none'}} class="thankyou_message">
+                    <h2><em>Thanks</em> for contacting us! We will get back to you soon!</h2>
+                    </div>
                 </form>
 
                 <script data-cfasync="false" type="text/javascript" src="../Resources/scripts/form-submission-handler.js"></script>
