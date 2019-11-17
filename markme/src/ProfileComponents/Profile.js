@@ -6,9 +6,10 @@ import '../css/profile.css'
 import Footer from '../Footer'
 class Profile extends React.Component{
     state={
-        name:"Joy (aka Hero)",
-        userType:"Student",
-        courseName:"Maa ki Bhakti (Hons)",
+        firstName:"Joy",
+        lastName:"(aka Hero)",
+        accountType:"Student",
+        program:"Maa ki Bhakti (Hons)",
         contact:"9999 ..",
         email:"bhaktihishaktihai@durgamail.com",
         dob:"30-05-2005",
@@ -16,12 +17,48 @@ class Profile extends React.Component{
         profileImage:""
     }
     componentDidMount(){
-        const profilePic = require('../Resources/images/hero.png');
+        const profilePic = require('../Resources/images/userlogo.png');
         this.setState({profileImage:profilePic})
+
+        const {username,account} = this.props.location.state
+        if(account==='s'){
+            fetch(`http://localhost:4000/userprofile?username=${username}`)
+            .then(response => response.json())
+            .then(response=>{
+                this.setState({
+                    firstName:response.data[0].first_name,
+                    lastName:response.data[0].last_name,
+                    accountType:response.data[0].account_type=='s'?'Student':'Teacher',
+                    program:response.data[0].program,
+                    contact:response.data[0].phone,
+                    email:response.data[0].email,
+                    dob:response.data[0].date_of_birth,
+                    semester:response.data[0].sem
+                })    
+            })
+            .catch(err=>console.error(err))
+        }
+        else{
+            fetch(`http://localhost:4000/userprofile?username=${username}`)
+            .then(response => response.json())
+            .then(response=>{
+                this.setState({
+                    firstName:response.data[0].first_name,
+                    lastName:response.data[0].last_name,
+                    accountType:response.data[0].account_type=='s'?'Student':'Teacher',
+                    program:response.data[0].program,
+                    contact:response.data[0].phone,
+                    email:response.data[0].email,
+                    dob:response.data[0].date_of_birth,
+                    semester:response.data[0].sem
+                })    
+            })
+            .catch(err=>console.error(err))
+        }
     }
     getUserOption(){
         return(
-            this.state.userType==='Student'?
+            this.state.accountType==='Student'?
             <div className='user-options'>
                 <div className="option-element ui big button">
                     <Link to='/checkattendence'>
@@ -72,12 +109,12 @@ class Profile extends React.Component{
     }
     getUserInfo(){
         return(
-            this.state.userType==='Student'?
+            this.state.accountType==='Student'?
             <div className='user-info'>
                 <div>
                     <h2 className="ui header">
                         <i className="edit icon"></i>
-                        Course Name : {this.state.courseName}
+                        Course Name : {this.state.program}
                     </h2>
                 </div>
                 <div>
@@ -110,7 +147,7 @@ class Profile extends React.Component{
                 <div>
                     <h2 className="ui header">
                         <i className="edit icon"></i>
-                        Course Name : {this.state.courseName}
+                        Course Name : {this.state.program}
                     </h2>
                 </div>
                 <div>
@@ -149,8 +186,8 @@ class Profile extends React.Component{
                         <div className='background-img'></div>
                         <div className="profile-img-section">
                             <img className="profile-img" src={this.state.profileImage}/>
-                            <h2>{this.state.name}</h2>
-                            <h2 style={{marginTop:"0.1em"}}>{this.state.userType}</h2>
+                            <h2>{this.state.firstName} {this.state.lastName}</h2>
+                            <h2 style={{marginTop:"0.1em"}}>{this.state.accountType}</h2>
                         </div>
                         {this.getUserInfo()}   
                     </div>

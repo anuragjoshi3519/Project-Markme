@@ -23,9 +23,10 @@ app.get('/',(req,res)=>{
     res.send("MarkMe Server")
 })
 
+
 app.get('/users',(req,res)=>{
-    const SELECT_QUERY = 'SELECT * FROM user';
-    connection.query(SELECT_QUERY,(err,results)=>{
+    const QUERY = 'SELECT * FROM user';
+    connection.query(QUERY,(err,results)=>{
         if(err){
             return res.send(err)
         }
@@ -36,6 +37,22 @@ app.get('/users',(req,res)=>{
         }
     })
 })
+
+app.get('/userprofile',(req,res)=>{
+    const {username} = req.query
+    const QUERY = `SELECT first_name, last_name, account_type, program, phone, email, date_of_birth, sem from student join user on student.username = user.username join batch on student.batch_id = batch.batch_id where reg_no = '${username}' ;`;
+    connection.query(QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+
 
 app.get('/users/add',(req,res)=>{
     const {username,password} = req.query
