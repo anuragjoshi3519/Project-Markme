@@ -9,6 +9,7 @@ import HomePage from './homePageComponent/HomePage'
 import CheckAttendance from './checkAttendanceComponent/CheckAttendance'
 import PreviousAttendance from './previousAttendanceComponent/PreviousAttendance'
 import MarkAtendance from './markAttendanceComponent/MarkAtendance'
+import ViewTimeTable from './viewTimeTableComponent/ViewTimeTable'
 
 const App = ()=>{
     return(
@@ -24,6 +25,7 @@ const App = ()=>{
                     <Route path='/academiccalender' component={AcademicCalendar}/>
                     <Route path='/checkattendence' component={CheckAttendance}/>
                     <Route path='/markattendence' component={MarkAtendance}/>
+                    <Route path='/viewtimetable' component={ViewTimeTable}/>
                 </div>
             </BrowserRouter>
     )

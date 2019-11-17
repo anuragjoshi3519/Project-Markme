@@ -1,12 +1,10 @@
 import React,{Component} from  "react"
 import ProfileHeader from "../ProfileComponents/ProfileHeader"
 import Footer from '../Footer'
-import logo from "../Resources/images/cal1.jpg"
-import logo1 from "../Resources/images/cal2.jpg"
-import '../css/academicCalendar.css'
+import logo from "../Resources/images/time.jpg"
+import '../css/viewTimeTable.css'
 import ModalImage from 'react-modal-image'
-
-class AcademicCalendar extends Component{
+class ViewTimeTable extends Component{
     constructor(){
         super()
         this.state = {
@@ -21,11 +19,12 @@ class AcademicCalendar extends Component{
         //set loading false when image loaded
     }
 
+
     academicCalendarContent(){
         return(
             <div className="academicCalendar-section">
                 <div className="heading">
-                    <h1>Academic Calendar 2019-2020</h1>
+                    <h1>Time Table Semester 3</h1>
                 </div>
                 <br/>
                 <div className="calendars">
@@ -36,17 +35,7 @@ class AcademicCalendar extends Component{
                                 large={logo}
                                 alt=""
                                 />
-                            <span class="caption">Odd Semester</span>
-                        </label>
-                    </div>
-                    <div className="calendar-one-side">
-                        <label>
-                        <ModalImage
-                                small={logo1}
-                                large={logo1}
-                                alt=""
-                                />
-                            <span class="caption">Even Semester</span>
+                            <span class="caption">Semester 3</span>
                         </label>
                     </div>
                  </div>
@@ -63,6 +52,8 @@ class AcademicCalendar extends Component{
             </div>
         )
     }
+
+
 }
 
-export default AcademicCalendar
+export default ViewTimeTable

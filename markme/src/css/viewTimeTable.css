@@ -1,92 +1,47 @@
-
-
 .academicCalendar-section{
-
     width:80%;
-
     height : 100vh;
-
     margin-left : auto;
-
     margin-right: auto;
-
     margin-bottom: 20px;
-
     padding-top : 20px;
-
     display : flex;
-
     flex-flow : column wrap;
-
     background-color:white;
-
 }
-
-
 
 .heading{
-
-    margin-top: 100px;
-
+    margin-top: 110px;
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
 }
-
 h1{
-
     color : black;
-
     font-size: 3rem;
-
     font-weight: 300;
-
     font-family: 'lato', 'Times New Roman', Times, serif;
-
 }
-
-
 
 .calendars{
-
     font-family: 'lato', 'Times New Roman', Times, serif;
-
     background-color: #f7f7f7;
-
     font-weight: 300;
-
     font-size: 2rem;
-
     height: 60%;
-
-    display: flex;
-
-    justify-content: space-around;
-
-    align-items: center;
-
-}
-
-.calendar-one-side{
-
-    margin-top : 80px;
-
-    width:300px;
-
-    height: 330px;
-
-    text-align:center;
-
-}
-
-.caption {
-
-    margin-top:30px;
-
     display: block;
-
+    justify-content: center;
+    align-items: center;
 }
-
+.calendar-one-side{
+    margin: auto auto;
+    margin-top:40px;
+    width:30%;
+    height: 330px;
+    text-align:center;
+    justify-content: center;
+}
+.caption {
+    margin-top:30px;
+    display: block;
+}

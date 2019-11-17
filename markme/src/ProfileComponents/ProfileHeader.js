@@ -20,7 +20,7 @@ class ProfileHeader extends Component{
                             View
                             <i className="dropdown icon"></i>
                             <div className="menu">
-                            <Link className="item" to='/timetable'>Timetable</Link>
+                            <Link className="item" to='/viewtimetable'>Timetable</Link>
                             <Link className="item" to='/academiccalender'>Acedemic Calender</Link>
                             </div>
                         </div>

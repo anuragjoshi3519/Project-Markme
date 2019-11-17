@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:'MarkMe'
+    database:'mark_me'
 })
 
 connection.connect((err)=>{
@@ -170,7 +170,7 @@ app.get('/checkattendancestudent',(req,res)=>{
 
 
 //--this is for checkAttendance module for teacher --> needs username
-//--> to fetch batch taught by teacher
+//--> to fetch batch taught by teacher -- show them `class id - subject_name - program` as options in dropdown menu
 app.get('/getbatches',(req,res)=>{
     const {username} = req.query
     const SELECT_QUERY = `SELECT class_id, subject_name, program from class where teacher_id = '${username}' and status = 1`;
@@ -185,10 +185,10 @@ app.get('/getbatches',(req,res)=>{
         }
     })
 })
-/*--> to show student attendance
+//--> to show student attendance
 app.get('/checkattendanceteacher',(req,res)=>{
     const {username, class_id} = req.query
-    const SELECT_QUERY = `SELECT `;
+    const SELECT_QUERY = `SELECT student.reg_no, first_name, last_name, sum(no_of_hours) AS attended, number_of_classes from running_classes join student on running_classes.reg_no = student.reg_no join class on running_classes.class_id = class.class_id where class.teacher_id = '${username}' and class.class_id = '${class_id}' and entry='P' group by student.reg_no;`;
     connection.query(SELECT_QUERY,(err,results)=>{
         if(err){
             return res.send(err)
@@ -201,12 +201,39 @@ app.get('/checkattendanceteacher',(req,res)=>{
     })
 })
 
-*/
 
 
-
-
-
+//--> markAttendance
+//1. for each table entry, if entry = 'A' (by default entry is 'P') then execute the following
+app.get('/markattendance',(req,res)=>{
+    const {reg_no, class_id, entry, no_of_hours} = req.query
+    const SELECT_QUERY = `INSERT INTO attendance VALUES (NULL, '${reg_no}', '${class_id}', '${entry}', '${no_of_hours}');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+//2. for updation of number_of_classes conducted  --- **QUERY IS CORRECT, FIGURE OUT HOW TO USE UPDATE QUERY IN NODE**
+app.get('/updateclasses',(req,res)=>{
+    const {class_id, no_of_hours, number_of_classes} = req.query
+    const SELECT_QUERY = `UPDATE class SET number_of_classes = (${no_of_hours} + ${number_of_classes}) where class_id = ${class_id}`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
 
 
 app.listen(4000,()=>{
