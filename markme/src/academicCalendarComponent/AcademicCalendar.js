@@ -1,5 +1,4 @@
 import React,{Component} from  "react"
-import ProfileHeader from "../ProfileComponents/ProfileHeader"
 import Footer from '../Footer'
 import logo from "../Resources/images/cal1.jpg"
 import logo1 from "../Resources/images/cal2.jpg"
@@ -28,7 +27,7 @@ class AcademicCalendar extends Component{
                     <h1>Academic Calendar 2019-2020</h1>
                 </div>
                 <br/>
-                <div className="calendars">
+                <div className="calendars" style={{display:'flex'}}>
                     <div className="calendar-one-side">
                         <label>
                         <ModalImage 

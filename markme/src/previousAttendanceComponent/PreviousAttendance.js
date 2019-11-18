@@ -57,8 +57,8 @@ class PreviousAttendance extends Component{
             <div>
                 <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
                 <div className="check-previous-attendance-section">
-                    <div className = "selection" style={{marginLeft:"-4em"}}>
-                        <p className="select-text">Select semester to show attendence  : </p>
+                    <div className = "selection">
+                        <p className="select-text">Select semester : </p>
                         <select className="drop-down" value={this.state.sem} onChange={this.handleChange}>
                             <option value={1}>Sem-1</option>
                             <option value={2}>Sem-2</option>
