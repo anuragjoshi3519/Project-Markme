@@ -64,7 +64,9 @@ h1{
 
     display: flex;
 
-    justify-content: space-around;
+    flex-direction: row;
+
+    justify-content: center;
 
     align-items: center;
 
@@ -85,8 +87,6 @@ h1{
 .caption {
 
     margin-top:30px;
-
-    display: block;
 
 }
 

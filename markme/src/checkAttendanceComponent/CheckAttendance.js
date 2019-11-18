@@ -1,7 +1,8 @@
 import React, {Component} from "react"
 import AttendanceEntry from "./AttendanceEntry"
+import Footer from '../Footer'
 import "../css/checkAttendance.css"
-
+import LoggedInUserHeader from "../LoggedInUserHeader"
 class CheckAttendance extends Component{
     constructor(){
         super()
@@ -39,10 +40,15 @@ class CheckAttendance extends Component{
     }
 
     render(){
+        
         return(
-            <div className="attendance-table-section">
-                {this.checkAttendanceHeading()}
-                <AttendanceEntry attendance={this.state.attendance} option='checkattendance'/>
+            <div>
+                <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
+                <div className="attendance-table-section" style={{marginTop:'10em'}}>
+                    {this.checkAttendanceHeading()}
+                    <AttendanceEntry attendance={this.state.attendance} option='checkattendance'/>
+                </div>
+                <Footer/>
             </div>
         )
     }

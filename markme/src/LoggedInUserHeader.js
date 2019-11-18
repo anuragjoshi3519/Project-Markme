@@ -1,20 +1,24 @@
 import React,{Component} from "react"
 import Img from 'react-image'
 import {Link} from 'react-router-dom'
-import logo from '../Resources/images/logo.png'
-import "../css/header.css"
+import logo from './Resources/images/logo.png'
+import "./css/header.css"
 import 'react-sticky-header/styles.css';
 import StickyHeader from 'react-sticky-header';
-class ProfileHeader extends Component{
+class LoggedInUserHeader extends Component{
     
     menuContent(){
         const {username,account_type} = this.props
         return(
             <div className='menu-section'>
                 <div className='logo'>
-                    <Link to=''><Img src={logo}/></Link>
+                    <Img src={logo}/>
                 </div>
                 <div className='menu-links'>
+                    <Link className='link' to={{pathname: '/userprofile/',
+                                                hash: `${username}`,
+                                                state: { username,account:account_type }
+                                                }} >Profile</Link>
                     <div className="ui compact menu" style={{ backgroundColor:"#f7f7f7",border:0}}>
                         <div className="link ui simple dropdown item" >
                             View
@@ -55,4 +59,4 @@ class ProfileHeader extends Component{
     }
 }
 
-export default ProfileHeader
+export default LoggedInUserHeader

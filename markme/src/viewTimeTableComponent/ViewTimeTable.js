@@ -1,9 +1,9 @@
 import React,{Component} from  "react"
-import ProfileHeader from "../ProfileComponents/ProfileHeader"
 import Footer from '../Footer'
 import logo from "../Resources/images/time.jpg"
 import '../css/viewTimeTable.css'
 import ModalImage from 'react-modal-image'
+import LoggedInUserHeader from "../LoggedInUserHeader"
 class ViewTimeTable extends Component{
     constructor(){
         super()
@@ -44,9 +44,10 @@ class ViewTimeTable extends Component{
     }
 
     render(){
+        const {username,account} = this.props.location.state
         return(
             <div>
-                <ProfileHeader />
+                <LoggedInUserHeader username={username} account_type={account} />
                 {this.academicCalendarContent()}
                 <Footer/>
             </div>

@@ -3,7 +3,8 @@ import AttendanceEntry from "../checkAttendanceComponent/AttendanceEntry"
 import TabularMenu from "./TabluarMenu.js"
 import semlist from "./semlist.js"
 import "../css/checkPreviousAttendance.css"
-
+import Footer from '../Footer'
+import LoggedInUserHeader from "../LoggedInUserHeader"
 class PreviousAttendance extends Component{
     constructor(){
         super()
@@ -45,26 +46,38 @@ class PreviousAttendance extends Component{
     }
 
     render(){
-        console.log(this.state.attendance)
+        const username = this.props.location.state.username
+        fetch(`http://localhost:4000/previousattendance?username=${username}&sem=${this.state.sem}`)
+            .then(response => response.json())
+            .then(response=>{
+                this.setState({attendance:response.data})    
+            })
+            .catch(err=>console.error(err))
         return(
-            <div className="check-previous-attendance-section">
-                <div className = "selection">
-                    <p className="select-text">Select Class to show timetable  : </p>
-                    <select className="ui drop-down" value={this.state.sem} onChange={this.handleChange}>
-                    {this.tabularCreation()}
-                    </select>
+            <div>
+                <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
+                <div className="check-previous-attendance-section">
+                    <div className = "selection" style={{marginLeft:"-4em"}}>
+                        <p className="select-text">Select semester to show attendence  : </p>
+                        <select className="drop-down" value={this.state.sem} onChange={this.handleChange}>
+                            <option value={1}>Sem-1</option>
+                            <option value={2}>Sem-2</option>
+                            <option value={3}>Sem-3</option>
+                        </select>
+                    </div>
+                    <table className="ui fixed single line celled table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Classes Conducted</th>
+                                <th>Classes Attended</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <AttendanceEntry attendance={this.state.attendance} option='previousattendance'/>
                 </div>
-                <table className="ui fixed single line celled table">
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Classes Conducted</th>
-                            <th>Classes Attended</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                </table>
-                <AttendanceEntry attendance={this.state.attendance} option='previousattendance'/>
+                <Footer/>
             </div>
         )
     }

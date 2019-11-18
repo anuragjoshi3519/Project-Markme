@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import "../css/checkAttendance.css"
-import ReactDOM from 'react-dom';
 class TeacherMarkTableEntry extends Component
 {
     constructor(props){
@@ -24,7 +23,7 @@ class TeacherMarkTableEntry extends Component
                         <td>{this.state.reg_no}</td>
                         <td>{`${this.state.first_name} ${this.state.last_name}`}</td>
                         <td>{this.state.class_attended}</td>
-                        <td>{this.state.percentage}</td>
+                        {this.state.percentage>=75?<td style={{backgroundColor:'#75bb3c'}}>{this.state.percentage}</td >:<td style={{backgroundColor:'#d44444'}}>{this.state.percentage}</td>}
                     </tr>
                 </table>
             </div>

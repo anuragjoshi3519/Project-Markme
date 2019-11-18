@@ -73,13 +73,14 @@ class Profile extends React.Component{
     }
 
     getUserOption(){
+        const account_type = this.state.accountType=='Student'?'s':'t'
         return(
             this.state.accountType==='Student'?
             <div className='user-options'>
                 <div className="option-element ui big button">
                     <Link to={{pathname: '/checkattendence',
                               hash: `${this.props.location.state.username}`,
-                              state: { username:this.props.location.state.username }
+                              state: { username:this.props.location.state.username,account_type}
                               }}>
                         <div className='button-text'>Check Attendence</div>
                     </Link>
@@ -92,7 +93,7 @@ class Profile extends React.Component{
                 <div className="option-element ui big button">
                     <Link to={{pathname: '/previousattendence',
                               hash: `${this.props.location.state.username}`,
-                              state: { username:this.props.location.state.username,sem:this.state.semester }
+                              state: { username:this.props.location.state.username,sem:this.state.semester,account_type}
                               }}>
                     <div className='button-text'>Previous Attendence</div>
                     </Link>
@@ -101,18 +102,27 @@ class Profile extends React.Component{
             :  
             <div className='user-options'>   
                 <div className="option-element ui big button">
-                    <Link to='/checkattendence'>
-                        <div className='button-text'>Check Attendence</div>
+                    <Link to={{pathname: '/teachermarkattendance',
+                              hash: `${this.props.location.state.username}`,
+                              state: { username:this.props.location.state.username,choose:'checkattendance',account_type }
+                              }}>
+                        <div className='button-text'>Check Attendance</div>
                     </Link>    
                 </div>
                 <div className="option-element ui big button">
-                    <Link to='/markattendence'>
-                        <div className='button-text'>Mark Attendence</div>
+                    <Link to={{pathname: '/markattendence',
+                              hash: `${this.props.location.state.username}`,
+                              state: { username:this.props.location.state.username,account_type }
+                              }}>
+                        <div className='button-text'>Mark Attendance</div>
                     </Link>    
                 </div> 
                 <div className="option-element ui big button">
-                    <Link to='/academiccalender'>
-                        <div className='button-text'>Print Short Attendence</div>
+                    <Link to={{pathname: '/teachermarkattendance',
+                              hash: `${this.props.location.state.username}`,
+                              state: { username:this.props.location.state.username,choose:'shortattendance',account_type }
+                              }}>
+                        <div className='button-text'>Print Short Attendance</div>
                     </Link>
                 </div> 
             </div>                                                                                
@@ -123,71 +133,72 @@ class Profile extends React.Component{
             this.state.accountType==='Student'?
             <div className='user-info'>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="edit icon"></i>
                         Course Name : {this.state.program}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="phone icon"></i>
                         Contact : {this.state.contact}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="envelope icon"></i>
                         Email ID : {this.state.email}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="birthday cake icon"></i>
                         D.O.B : {this.state.dob}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="calendar alternate icon"></i>
                         Semester : {this.state.semester}
-                    </h2>
+                    </h3>
                 </div>                                                                                               
             </div>
             :
             <div className='user-info'>
                 <div>
-                    <h2 className="ui very big header">
+                    <h3 className="ui very big header">
                     <span>
                         <i className="edit big icon"></i>
                         Subjects Teaching : {this.getSubjects()}
                     </span>
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="phone icon"></i>
                         Contact : {this.state.contact}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="envelope icon"></i>
                         Email ID : {this.state.email}
-                    </h2>
+                    </h3>
                 </div>
                 <div>
-                    <h2 className="ui header">
+                    <h3 className="ui header">
                         <i className="birthday cake icon"></i>
                         D.O.B : {this.state.dob}
-                    </h2>
+                    </h3>
                 </div>                                                                                            
             </div>
         )
     }
     render(){
+        const account_type = this.state.accountType=='Student'?'s':'t'
         return(
             <div>
-                <ProfileHeader/>
+                <ProfileHeader username={this.props.location.state.username} account_type={account_type}/>
                 <div className='profile-div'>
                     <div className='user-profile'>
                         <div className='background-img'></div>

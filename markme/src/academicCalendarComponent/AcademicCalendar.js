@@ -5,7 +5,7 @@ import logo from "../Resources/images/cal1.jpg"
 import logo1 from "../Resources/images/cal2.jpg"
 import '../css/academicCalendar.css'
 import ModalImage from 'react-modal-image'
-
+import LoggedInUserHeader from "../LoggedInUserHeader"
 class AcademicCalendar extends Component{
     constructor(){
         super()
@@ -57,7 +57,7 @@ class AcademicCalendar extends Component{
     render(){
         return(
             <div>
-                <ProfileHeader />
+                <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
                 {this.academicCalendarContent()}
                 <Footer/>
             </div>

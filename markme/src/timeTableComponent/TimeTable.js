@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import "../css/timetable.css"
-
 class TimeTable extends Component{
     constructor(){
         super()
@@ -200,7 +199,7 @@ class TimeTable extends Component{
         {
             if(this.state.class === "noneSelected")
             {
-                return (this.adminTimeTableContent())
+                return (this.adminTimeTableContent())   
             }       
 
             return (
@@ -211,7 +210,7 @@ class TimeTable extends Component{
             )
         }   
         
-        return ( this.generalTimeTableContent() ) 
+        return (this.generalTimeTableContent())
     }
 }
 
