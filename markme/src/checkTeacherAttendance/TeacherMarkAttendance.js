@@ -1,5 +1,4 @@
 import React, {Component} from "react"
-import TeacherSingleEntry from "./TeacherSingleEntry"
 import "../css/checkAttendance.css"
 import TabularMenu from "./TabluarMenu"
 import semlist from "./semlist.js"
@@ -109,29 +108,7 @@ class TeacherMarkAttendance extends Component{
             return(
                 <div>
                 <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
-                <div className="check-attendance-section">
-                    <div className = "selection">
-                        <p className="select-text">Select Class: </p>
-                        <select className="drop-down" value={this.state.class_id} onChange={this.handleChange}>
-                        {this.state.batchesTaught.map((ele)=><option value={ele.class_id}>{ele.subject_name}</option>)}
-                        {this.tabularCreation()}
-                        </select>
-                    </div>
-                    <div className="attendance-table-section">
-                        {this.printClassInfo()}
-                        {this.markAttendanceHeading()}
-                        {this.state.studentsData.map(Entry => this.teacherMarkTableEntry(Entry.reg_no,Entry.first_name,Entry.last_name,Entry.class_attended,Entry.number_of_classes))}
-                    </div>
-                </div>
-                </div>
-            )
-        }
-        else{
-            const shortAttendanceData = this.state.studentsData.filter((entry)=>((entry.class_attended/entry.number_of_classes)*100).toFixed(2)<75)
-            return(
-                <div>
-                    <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
-                    <div className="check-attendance-section">
+                    <div className="check-attendance-section" style={{margin:'5em',height:"100vh"}}>
                         <div className = "selection">
                             <p className="select-text">Select Class: </p>
                             <select className="drop-down" value={this.state.class_id} onChange={this.handleChange}>
@@ -140,6 +117,29 @@ class TeacherMarkAttendance extends Component{
                             </select>
                         </div>
                         <div className="attendance-table-section">
+                            {this.printClassInfo()}
+                            {this.markAttendanceHeading()}
+                            {this.state.studentsData.map(Entry => this.teacherMarkTableEntry(Entry.reg_no,Entry.first_name,Entry.last_name,Entry.class_attended,Entry.number_of_classes))}
+                        </div>
+                    </div>
+                <Footer/>
+                </div>
+            )
+        }
+        else{
+            const shortAttendanceData = this.state.studentsData.filter((entry)=>((entry.class_attended/entry.number_of_classes)*100).toFixed(2)<75)
+            return(
+                <div>
+                    <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type} />
+                    <div className="check-attendance-section" style={{margin:'5em',height:"100vh"}}>
+                        <div className = "selection">
+                            <p className="select-text">Select Class: </p>
+                            <select className="drop-down" value={this.state.class_id} onChange={this.handleChange}>
+                            {this.state.batchesTaught.map((ele)=><option value={ele.class_id}>{ele.subject_name}</option>)}
+                            {this.tabularCreation()}
+                            </select>
+                        </div>
+                        <div className="attendance-table-section" >
                             {this.printClassInfo()}
                             {this.markAttendanceHeading()}
                             {shortAttendanceData.map(Entry => this.teacherMarkTableEntry(Entry.reg_no,Entry.first_name,Entry.last_name,Entry.class_attended,Entry.number_of_classes))}

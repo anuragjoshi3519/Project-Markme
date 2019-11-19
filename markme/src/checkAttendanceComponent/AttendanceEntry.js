@@ -6,32 +6,31 @@ class AttendanceEntry extends Component{
     
     getEntries=()=>{
         const {attendance}=this.props
-        if(this.props.option==='checkattendance'){  
+        let i=0
+        if(this.props.option==='checkattendance'){ 
             return (attendance.map(entry => <TableEntry
-                                                        subject={entry.subject_name} 
-                                                        conducted={entry.number_of_classes} 
-                                                        attended={entry.classes_attended}
-                                                        percentage={((entry.classes_attended/entry.number_of_classes)*100).toFixed(2)}
-                                                        />)
+                                                    key={i++}
+                                                    subject={entry.subject_name} 
+                                                    conducted={entry.number_of_classes} 
+                                                    attended={entry.classes_attended}
+                                                    percentage={((entry.classes_attended/entry.number_of_classes)*100).toFixed(2)}
+                                                    />)
             )
         }
         else{
-            return ( this.props.attendance.map(entry => <TableEntry  
-                                                                    subject={entry.subject_name} 
-                                                                    conducted={entry.number_of_classes} 
-                                                                    attended={Math.floor((entry.percentage*entry.number_of_classes)/100)}
-                                                                    percentage={entry.percentage}
-                                                                    />)
+            return (attendance.map(entry => <TableEntry  
+                                                    key={i++}
+                                                    subject={entry.subject_name} 
+                                                    conducted={entry.number_of_classes} 
+                                                    attended={Math.floor((entry.percentage*entry.number_of_classes)/100)}
+                                                    percentage={entry.percentage}
+                                                    />)
             ) 
         }
     }
 
     render(){
-        return(
-            <div>
-               {this.getEntries()} 
-            </div>
-     )
+        return(this.getEntries())
     }
  }
 
