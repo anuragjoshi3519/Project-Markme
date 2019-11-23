@@ -1,6 +1,4 @@
 import React, {Component} from "react"
-import SingleEntry from "./SingleEntry"
-import {Link} from 'react-router-dom'
 import "../css/checkAttendance.css"
 import LoggedInUserHeader from "../LoggedInUserHeader"
 import Footer from '../Footer'
@@ -12,7 +10,7 @@ class MarkAttendance extends Component{
             studentsData:[],
             class_id:'class1',
             batchesTaught:[],
-            no_of_hours:0
+            no_of_hours:1
         }
     }
 
@@ -33,17 +31,38 @@ class MarkAttendance extends Component{
         .catch(err=>console.error(err))
     }
 
-    componentWillUnmount(){
+    handleSubmitButton=()=>{
         const username = this.props.location.state.username
         fetch(`http://localhost:4000/updateclasses?class_id='${this.state.class_id}'&no_of_hours=${this.state.no_of_hours}`)
         .then(response => response.json())
-        .then(response=>{
-            this.setState({batchesTaught:response.data})    
+        .catch(err=>console.error(err))
+
+        alert('Attendence Submitted Successfully.')
+        this.setState({no_of_hours:0})
+        this.props.history.push({
+            pathname: '/userprofile/',
+            hash: `${username}`,
+            state: { username,account:this.props.location.state.account_type }
         })
-        .catch(err=>console.error(err)) 
+
+    }
+
+    handlePresentButton=(presentId,absentId,reg_no)=>{
+        document.getElementById(presentId).style.backgroundColor='green'
+        document.getElementById(absentId).style.backgroundColor=''
+        fetch(`http://localhost:4000/markattendance?reg_no=${reg_no}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
+        .then(response => response.json())
+        .catch(err=>console.error(err))
+    }
+
+    handleAbsentButton=(presentId,absentId)=>{
+        document.getElementById(absentId).style.backgroundColor='red'
+        document.getElementById(presentId).style.backgroundColor=''
     }
 
     markTableEntry(reg_no,first_name,last_name){
+        const presentId = reg_no + '1'
+        const absentId = reg_no + '2'
         return(
             <div>
                 <table class="ui fixed single line celled table">
@@ -51,18 +70,13 @@ class MarkAttendance extends Component{
                         <td>{reg_no}</td>
                         <td>{`${first_name} ${last_name}`}</td>
                         <td>
-                            <h3 style={{display:'inline'}}>Present :  </h3> <input type="checkbox" className="ui big checkbox" onClick={()=>this.handlePresentButton(reg_no)}/>
+                            <button id={presentId} className="present-button ui big button" onClick={()=>this.handlePresentButton(presentId,absentId,reg_no)}>Present</button>
+                            <button id={absentId} className="absent-button ui big button" onClick={()=>this.handleAbsentButton(presentId,absentId)}>Absent</button>
                         </td>
                     </tr>
                 </table>
             </div>
         )
-    }
-
-    handlePresentButton=(reg_no)=>{
-        fetch(`http://localhost:4000/markattendance?reg_no=${reg_no}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
-        .then(response => response.json())
-        .catch(err=>console.error(err))
     }
 
     handleChange=(event)=>{
@@ -73,16 +87,6 @@ class MarkAttendance extends Component{
     handleInputChange=(event)=>{
         const {value} = event.target
         this.setState({ no_of_hours : value })
-    }
-
-    printClassInfo(){
-        let i=0
-        const {batchesTaught}=this.state
-        for(i=0;i<batchesTaught.length;i+=1){
-            if(this.state.class_id===batchesTaught[i].class_id){
-            return (<h2>Subject : {batchesTaught[i].subject_name}  /  Program : {batchesTaught[i].program}</h2>)
-            }
-        }
     }
 
     markAttendanceHeading(){
@@ -139,10 +143,7 @@ class MarkAttendance extends Component{
                         {this.markAttendanceHeading()}
                         {this.state.studentsData.map(Entry => this.markTableEntry(Entry.reg_no,Entry.first_name,Entry.last_name,this.state.class_id)) }
                     </div>
-                    <Link style={{textAlign:'center',marginBottom:'2em'}} to={{pathname: '/userprofile/',
-                              hash: `${this.props.location.state.username}`,
-                              state: { username:this.props.location.state.username, account:this.props.location.state.account_type }
-                              }}><button className='ui big orange button'>Submit Attendance</button></Link>
+                    <button className='ui big orange button' style={{textAlign:'center',marginBottom:'3em'}} onClick={this.handleSubmitButton}>Submit Attendance</button>
                 </div>
                 <Footer/>
             </div>
