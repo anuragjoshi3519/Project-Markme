@@ -6,7 +6,6 @@ import BunkAssistDetails from './BunkAssistDetails'
 import ContactCard from './ContactCard'
 import Footer from '../Footer'
 import "../css/homePage.css"
-import "../adminComponent/AddTeacher"
 import AddTeacher from '../adminComponent/AddTeacher'
 import AddStudent from '../adminComponent/AddStudent'
 import AddClass from '../adminComponent/AddClass'
@@ -20,7 +19,17 @@ class HomePage extends Component{
     render(){
         return(
             <div className='main-div'>
-                <AddBatch/>
+                <Header/>
+                <div className='intro-section'>
+                    <h1 className='intro-title'>WHAT DO WE DO?</h1>
+                    <p className='intro-message'>Mark Me is an attendence management system for schools and colleges.
+                        It lets users track their attendence on the fly. Check out our features below.</p>
+                </div>
+                <OnlineSuite/>
+                <OfflineSuite/>
+                <BunkAssistDetails/>
+                <ContactCard/>
+                <Footer/>
             </div>
         )
     }
