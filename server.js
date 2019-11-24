@@ -251,6 +251,40 @@ app.get('/updateclasses',(req,res)=>{
 })
 
 
+
+//-> to add a teacher
+// 1. add user --> before this, check if the same username exists in the database, if yes then return error
+app.get('/adduser',(req,res)=>{
+    const {teacherID, password} = req.query
+    const SELECT_QUERY = `INSERT INTO user VALUES ('${teacherID}', '${password}', 't');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+// 2. add teacher --> before this, check if the same username exists in the database, if yes then return error
+app.get('/addteacher',(req,res)=>{
+    const {teacherID, firstName, middleName, lastName, dob, gender, email, phone, joiningDate} = req.query
+    const SELECT_QUERY = `INSERT INTO teacher VALUES ('${teacherID}', '${teacherID}', '${firstName}','${middleName}','${lastName}','${dob}','${gender}','${email}','${phone}',NULL,'${joiningDate}');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+
+
 app.listen(4000,()=>{
     console.log("I am Listening.")
 })
