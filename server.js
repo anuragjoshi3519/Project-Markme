@@ -268,7 +268,7 @@ app.get('/adduser',(req,res)=>{
         }
     })
 })
-// 2. add teacher --> before this, check if the same username exists in the database, if yes then return error
+// 2. add teacher --> before this, check if the same teacherID exists in the database, if yes then return error
 app.get('/addteacher',(req,res)=>{
     const {teacherID, firstName, middleName, lastName, dob, gender, email, phone, joiningDate} = req.query
     const SELECT_QUERY = `INSERT INTO teacher VALUES ('${teacherID}', '${teacherID}', '${firstName}','${middleName}','${lastName}','${dob}','${gender}','${email}','${phone}',NULL,'${joiningDate}');`;
@@ -284,6 +284,77 @@ app.get('/addteacher',(req,res)=>{
     })
 })
 
+
+
+// -> to add a batch
+app.get('/addbatch',(req,res)=>{
+    const {batchID, program} = req.query
+    const SELECT_QUERY = `INSERT INTO batch VALUES ('${batchID}', '${program}', '1');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+
+
+
+// -> to add a student
+//1. call '/adduser' first, and then do the next one
+//2. addStudent -> before this, check if the same reg_no exists in the database, if yes then return error
+app.get('/addstudent',(req,res)=>{
+    const {regNo, firstName, middleName, lastName, dob, gender, email, phone, joiningDate, batchID} = req.query
+    const SELECT_QUERY = `INSERT INTO student VALUES ('${regNo}', '${regNo}', '${firstName}','${middleName}','${lastName}','${dob}','${gender}','${email}','${phone}',NULL,'${joiningDate}','${batchID}');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+
+
+
+// -> to add a class
+//1. add class --> check if same classID exists, if yes then return error
+app.get('/addclass',(req,res)=>{
+    const {classID, subjectName, teacherID, program, taughtInSem, conductionYear} = req.query
+    const SELECT_QUERY = `INSERT INTO class VALUES ('${classID}', '${subjectName}', '${teacherID}','${program}','${taughtInSem}','${conductionYear}','0','1');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+//2. add batch to class
+app.get('/addbatchtoclass',(req,res)=>{
+    const {classID, batchID} = req.query
+    const SELECT_QUERY = `INSERT INTO batch_attends_class VALUES ('${classID}','${batchID}');`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
 
 app.listen(4000,()=>{
     console.log("I am Listening.")
