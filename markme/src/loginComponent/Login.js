@@ -109,7 +109,6 @@ class Login extends Component{
                     <div className="ui left icon input">
                         <input 
                             type="text" 
-                            placeholder="Username"
                             name="usernameLogin" 
                             value={this.state.usernameLogin} 
                             placeholder="Enter Username"
