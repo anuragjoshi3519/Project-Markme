@@ -1,7 +1,7 @@
 import React,{Component} from "react"
 import LoggedInUserHeader from "../LoggedInUserHeader"
 import Footer from '../Footer'
-import "../css/addClass.css"
+import "../css/addBatch.css"
 
 class AddBatch extends Component{
     constructor(){

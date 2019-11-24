@@ -19,17 +19,7 @@ class HomePage extends Component{
     render(){
         return(
             <div className='main-div'>
-                <Header/>
-                <div className='intro-section'>
-                    <h1 className='intro-title'>WHAT DO WE DO?</h1>
-                    <p className='intro-message'>Mark Me is an attendence management system for schools and colleges.
-                        It lets users track their attendence on the fly. Check out our features below.</p>
-                </div>
-                <OnlineSuite/>
-                <OfflineSuite/>
-                <BunkAssistDetails/>
-                <ContactCard/>
-                <Footer/>
+                <AddBatch/>
             </div>
         )
     }
