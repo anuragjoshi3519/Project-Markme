@@ -127,7 +127,7 @@ class Profile extends React.Component{
                 </div> 
             </div> 
             :
-            <div className='user-options'>   
+            <div className='user-options' style={{height:'75%',display:"flex",justifyContent:'space-around'}}>   
                 <div className="option-element ui big button">
                     <Link to={{pathname: '/addteacher',
                             hash: `${this.props.location.state.username}`,

@@ -14,9 +14,35 @@ class AddClass extends Component{
             program : "",
             taughtInSem : "",
             conductionYear : "",
+            batchIDOptions:[],
+            teacherIDOptions:[],
+            classIDOptions:[]
         }
 
         this.handleAddClassChange = this.handleAddClassChange.bind(this)
+    }
+
+    componentDidMount(){
+        fetch('http://localhost:4000/loadteacher')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({teacherIDOptions:response.data})    
+        })
+        .catch(err=>console.error(err))
+
+        fetch('http://localhost:4000/loadbatch')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({batchIDOptions:response.data})    
+        })
+        .catch(err=>console.error(err))
+
+        fetch('http://localhost:4000/loadclass')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({classIDOptions:response.data})    
+        })
+        .catch(err=>console.error(err))
     }
 
     handleAddClassChange(event){
@@ -24,6 +50,44 @@ class AddClass extends Component{
         this.setState({
             [name] : value
         })
+    }
+
+    handleSubmit=(event)=>{
+        event.preventDefault()
+        const {classID, subjectName, teacherID,batchID, program, taughtInSem, conductionYear,classIDOptions} = this.state
+        
+        if(classID===''||subjectName===''||teacherID===''||batchID===''||program===''||taughtInSem===''||conductionYear===''){
+            alert('Please enter missing details')
+        }
+        else{
+            let flag=0
+            let i=0
+            for(i=0;i<classIDOptions.length;i+=1){
+                if(classID===classIDOptions[i].class_id){
+                    flag=1
+                    break
+                }
+            }
+            if(flag===0){
+                fetch(`http://localhost:4000/addclass?classID=${classID}&subjectName=${subjectName}&teacherID=${teacherID}&program=${program}&taughtInSem=${taughtInSem}&conductionYear=${conductionYear}`)
+                .then(response=>response.json())
+                .catch(err=>console.error(err))
+
+                fetch(`http://localhost:4000/addbatchtoclass?classID=${classID}&batchID=${batchID}`)
+                .then(response => response.json())
+                .catch(err=>console.error(err))
+
+                alert('Class successfully added to database')
+                this.props.history.push({
+                    pathname: '/userprofile/',
+                    hash: `${this.props.location.state.username}`,
+                    state: { username:this.props.location.state.username,account:this.props.location.state.account_type }
+                })
+            }
+            else{
+                alert('Same class ID is already present, try another one.')
+            }
+        }
     }
 
     addClassContent(){
@@ -36,7 +100,7 @@ class AddClass extends Component{
                 <br/>
 
                 <main className="addClass-form">
-                    <form className="ui form">
+                    <form className="ui form" autoComplete="off">
 
                         <div className="two fields">
                             <div className="field">
@@ -75,9 +139,7 @@ class AddClass extends Component{
                                     onChange = {this.handleAddClassChange}
                                 >
                                     <option value="">Select a teacher</option>
-                                    <option value="teach1">Teacher 1</option>
-                                    <option value="teach2">Teacher 2</option>
-                                    <option value="teach3">Teache 3</option>
+                                    {this.state.teacherIDOptions.map(ele=><option value={ele.teacher_id}>{ele.teacher_id}</option>)}
                                 </select>
                             </div>
                             <div class="field">
@@ -88,9 +150,7 @@ class AddClass extends Component{
                                     onChange = {this.handleAddClassChange}
                                 >
                                     <option value="">Select a batch</option>
-                                    <option value="teach1">Batch 1</option>
-                                    <option value="teach2">Batch 2</option>
-                                    <option value="teach3">Batch 3</option>
+                                    {this.state.batchIDOptions.map(ele=><option value={ele.batch_id}>{ele.batch_id}</option>)}
                                 </select>
                             </div>
                         </div>
@@ -114,7 +174,7 @@ class AddClass extends Component{
                                         placeholder="Enter Semester when taught"
                                         name="taughtInSem"
                                         value={this.state.taughtInSem}
-                                        onChange = {this.handleAddStudentChange}
+                                        onChange = {this.handleAddClassChange}
                                     />
                             </div>
                             <div class="field">
@@ -123,14 +183,14 @@ class AddClass extends Component{
                                         type="number" 
                                         placeholder="Enter year of conduction"
                                         name="conductionYear"
-                                        value={this.state.taughtInSem}
-                                        onChange = {this.handleAddStudentChange}
+                                        value={this.state.conductionYear}
+                                        onChange = {this.handleAddClassChange}
                                     />
                             </div>
                         </div>
                         <br/>
 
-                        <button className="ui blue submit button" type='submit' style={{marginTop:'2em',width:'40%', marginLeft:'30%', fontSize :'1.2em'}}>Add Class</button>
+                        <button className="ui blue submit button" type='submit' style={{marginTop:'2em',width:'40%', marginLeft:'30%', fontSize :'1.2em'}} onClick={this.handleSubmit} >Add Class</button>
                     </form>
                 </main>
             </div>

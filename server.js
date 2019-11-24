@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:'mark_me'
+    database:'MarkMe'
 })
 
 connection.connect((err)=>{
@@ -375,6 +375,21 @@ app.get('/loadbatch',(req,res)=>{
         }
     })
 })
+
+app.get('/loadclass',(req,res)=>{
+    const SELECT_QUERY = `SELECT class_id from class`;
+    connection.query(SELECT_QUERY,(err,results)=>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.json({
+                data : results
+            })
+        }
+    })
+})
+
 //3. add class --> check if same classID exists, if yes then return error
 app.get('/addclass',(req,res)=>{
     const {classID, subjectName, teacherID, program, taughtInSem, conductionYear} = req.query
