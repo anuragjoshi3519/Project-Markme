@@ -10,6 +10,7 @@ import AddTeacher from '../adminComponent/AddTeacher'
 import AddStudent from '../adminComponent/AddStudent'
 import AddClass from '../adminComponent/AddClass'
 import AddBatch from '../adminComponent/AddBatch'
+import NewSem from '../adminComponent/NewSem'
 
 class HomePage extends Component{
     componentDidMount() {
@@ -19,7 +20,8 @@ class HomePage extends Component{
     render(){
         return(
             <div className='main-div'>
-                <Header/>
+                <NewSem/>
+                {/* <Header/>
                 <div className='intro-section'>
                     <h1 className='intro-title'>WHAT DO WE DO?</h1>
                     <p className='intro-message'>Mark Me is an attendence management system for schools and colleges.
@@ -29,7 +31,7 @@ class HomePage extends Component{
                 <OfflineSuite/>
                 <BunkAssistDetails/>
                 <ContactCard/>
-                <Footer/>
+                <Footer/> */}
             </div>
         )
     }
