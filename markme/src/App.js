@@ -11,6 +11,10 @@ import PreviousAttendance from './previousAttendanceComponent/PreviousAttendance
 import MarkAtendance from './markAttendanceComponent/MarkAttendance'
 import ViewTimeTable from './viewTimeTableComponent/ViewTimeTable'
 import TeacherMarkAttendance from './checkTeacherAttendance/TeacherMarkAttendance'
+import AddTeacher from './adminComponent/AddTeacher'
+import AddStudent from './adminComponent/AddStudent'
+import AddClass from './adminComponent/AddClass'
+import AddBatch from './adminComponent/AddBatch'
 
 const App = ()=>{
     return(
@@ -28,6 +32,10 @@ const App = ()=>{
                     <Route path='/markattendence' component={MarkAtendance}/>
                     <Route path='/viewtimetable' component={ViewTimeTable}/>
                     <Route path='/teachermarkattendance' component={TeacherMarkAttendance}/>
+                    <Route path='/addteacher' component={AddTeacher}/>
+                    <Route path='/addstudent' component={AddStudent}/>
+                    <Route path='/addClass' component={AddClass}/>
+                    <Route path='/addbatch' component={AddBatch}/>
                 </div>
             </BrowserRouter>
     )
