@@ -6,14 +6,14 @@ import '../css/profile.css'
 import Footer from '../Footer'
 class Profile extends React.Component{
     state={
-        firstName:"Joy",
+        firstName:"Abhishek",
         middleName:"",
-        lastName:"(aka Hero)",
-        accountType:"Student",
-        program:"Maa ki Bhakti (Hons)",
-        contact:"9999 ..",
-        email:"bhaktihishaktihai@durgamail.com",
-        dob:"30-05-2005",
+        lastName:"Joshi",
+        accountType:"Admin",
+        program:"MCA",
+        contact:"9902676373",
+        email:"abhishekjoshi@protonmail.com",
+        dob:"11-12-1997",
         semester: 4,
         profileImage:"",
         subjectTeaching:[]
@@ -31,7 +31,7 @@ class Profile extends React.Component{
                     firstName:response.data[0].first_name,
                     middleName:response.data[0].middle_name,
                     lastName:response.data[0].last_name,
-                    accountType:response.data[0].account_type=='s'?'Student':'Teacher',
+                    accountType:response.data[0].account_type=='s'?'Student':response.data[0].account_type=='t'?'Teacher':'Admin',
                     program:response.data[0].program,
                     contact:response.data[0].phone,
                     email:response.data[0].email,
@@ -41,7 +41,7 @@ class Profile extends React.Component{
             })
             .catch(err=>console.error(err))
         }
-        else{
+        else if(account==='t'){
             fetch(`http://localhost:4000/teacherprofiledata?username=${username}`)
             .then(response => response.json())
             .then(response=>{
@@ -49,7 +49,7 @@ class Profile extends React.Component{
                     firstName:response.data[0].first_name,
                     middleName:response.data[0].middle_name,
                     lastName:response.data[0].last_name,
-                    accountType:response.data[0].account_type=='s'?'Student':'Teacher',
+                    accountType:response.data[0].account_type=='s'?'Student':response.data[0].account_type=='t'?'Teacher':'Admin',
                     program:response.data[0].program,
                     contact:response.data[0].phone,
                     email:response.data[0].email,
@@ -73,7 +73,7 @@ class Profile extends React.Component{
     }
 
     getUserOption(){
-        const account_type = this.state.accountType=='Student'?'s':'t'
+        const account_type = this.state.accountType=='Student'?'s':this.state.accountType=='Teacher'?'t':'a'
         return(
             this.state.accountType==='Student'?
             <div className='user-options'>
@@ -99,7 +99,7 @@ class Profile extends React.Component{
                     </Link>
                 </div>
             </div>
-            :  
+            :this.state.accountType==='Teacher'?
             <div className='user-options'>   
                 <div className="option-element ui big button">
                     <Link to={{pathname: '/teachermarkattendance',
@@ -125,7 +125,50 @@ class Profile extends React.Component{
                         <div className='button-text'>Print Short Attendance</div>
                     </Link>
                 </div> 
-            </div>                                                                                
+            </div> 
+            :
+            <div className='user-options'>   
+                <div className="option-element ui big button">
+                    <Link to={{pathname: '/addteacher',
+                            hash: `${this.props.location.state.username}`,
+                            state: { username:this.props.location.state.username,account_type }
+                            }}>
+                        <div className='button-text'>Add New Teacher</div>
+                    </Link>    
+                </div>
+                <div className="option-element ui big button">
+                    <Link to={{pathname: '/addstudent',
+                            hash: `${this.props.location.state.username}`,
+                            state: { username:this.props.location.state.username,account_type }
+                            }}>
+                        <div className='button-text'>Add New Students</div>
+                    </Link>    
+                </div> 
+                <div className="option-element ui big button">
+                    <Link to={{pathname: '/addsem',
+                            hash: `${this.props.location.state.username}`,
+                            state: { username:this.props.location.state.username,account_type }
+                            }}>
+                        <div className='button-text'>Add New Semester</div>
+                    </Link>
+                </div>
+                <div className="option-element ui big button">
+                    <Link to={{pathname: '/addbatch',
+                            hash: `${this.props.location.state.username}`,
+                            state: { username:this.props.location.state.username,account_type }
+                            }}>
+                        <div className='button-text'>Add New Batch</div>
+                    </Link>
+                </div>
+                <div className="option-element ui big button">
+                    <Link to={{pathname: '/addclass',
+                            hash: `${this.props.location.state.username}`,
+                            state: { username:this.props.location.state.username,account_type }
+                            }}>
+                        <div className='button-text'>Add New Class</div>
+                    </Link>
+                </div> 
+            </div>                                                                             
             )
     }
     getUserInfo(){
@@ -163,7 +206,7 @@ class Profile extends React.Component{
                     </h3>
                 </div>                                                                                               
             </div>
-            :
+            :this.state.accountType==='Teacher'?
             <div className='user-info'>
                 <div>
                     <h3 className="ui very big header">
@@ -173,6 +216,27 @@ class Profile extends React.Component{
                     </span>
                     </h3>
                 </div>
+                <div>
+                    <h3 className="ui header">
+                        <i className="phone icon"></i>
+                        Contact : {this.state.contact}
+                    </h3>
+                </div>
+                <div>
+                    <h3 className="ui header">
+                        <i className="envelope icon"></i>
+                        Email ID : {this.state.email}
+                    </h3>
+                </div>
+                <div>
+                    <h3 className="ui header">
+                        <i className="birthday cake icon"></i>
+                        D.O.B : {this.state.dob}
+                    </h3>
+                </div>                                                                                            
+            </div>
+            :
+            <div className='user-info'>
                 <div>
                     <h3 className="ui header">
                         <i className="phone icon"></i>
