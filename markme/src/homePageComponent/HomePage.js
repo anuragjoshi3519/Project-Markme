@@ -20,8 +20,7 @@ class HomePage extends Component{
     render(){
         return(
             <div className='main-div'>
-                <NewSem/>
-                {/* <Header/>
+                <Header/>
                 <div className='intro-section'>
                     <h1 className='intro-title'>WHAT DO WE DO?</h1>
                     <p className='intro-message'>Mark Me is an attendence management system for schools and colleges.
@@ -31,7 +30,7 @@ class HomePage extends Component{
                 <OfflineSuite/>
                 <BunkAssistDetails/>
                 <ContactCard/>
-                <Footer/> */}
+                <Footer/>
             </div>
         )
     }

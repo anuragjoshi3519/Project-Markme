@@ -10,7 +10,8 @@ class MarkAttendance extends Component{
             studentsData:[],
             class_id:'class1',
             batchesTaught:[],
-            no_of_hours:1
+            no_of_hours:1,
+            presentStudents:[]
         }
     }
 
@@ -33,6 +34,13 @@ class MarkAttendance extends Component{
 
     handleSubmitButton=()=>{
         const username = this.props.location.state.username
+
+        for(let i=0;i<this.state.presentStudents.length;i+=1){
+            fetch(`http://localhost:4000/markattendance?reg_no=${this.state.presentStudents[i]}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
+            .then(response => response.json())
+            .catch(err=>console.error(err))      
+        }
+
         fetch(`http://localhost:4000/updateclasses?class_id='${this.state.class_id}'&no_of_hours=${this.state.no_of_hours}`)
         .then(response => response.json())
         .catch(err=>console.error(err))
@@ -50,14 +58,23 @@ class MarkAttendance extends Component{
     handlePresentButton=(presentId,absentId,reg_no)=>{
         document.getElementById(presentId).style.backgroundColor='green'
         document.getElementById(absentId).style.backgroundColor=''
-        fetch(`http://localhost:4000/markattendance?reg_no=${reg_no}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
-        .then(response => response.json())
-        .catch(err=>console.error(err))
+        this.setState(state=>{
+            if(state.presentStudents.includes(reg_no)===false){
+                const presentStudents=state.presentStudents.concat(reg_no)
+                return{presentStudents}
+            }
+        })
     }
 
-    handleAbsentButton=(presentId,absentId)=>{
+    handleAbsentButton=(presentId,absentId,reg_no)=>{
         document.getElementById(absentId).style.backgroundColor='red'
         document.getElementById(presentId).style.backgroundColor=''
+        this.setState(state=>{
+            if(state.presentStudents.includes(reg_no)){
+                const presentStudents=state.presentStudents.filter(item=>item!=reg_no)
+                return{presentStudents}
+            }
+        })
     }
 
     markTableEntry(reg_no,first_name,last_name){
@@ -71,7 +88,7 @@ class MarkAttendance extends Component{
                         <td>{`${first_name} ${last_name}`}</td>
                         <td>
                             <button id={presentId} className="present-button ui big button" onClick={()=>this.handlePresentButton(presentId,absentId,reg_no)}>Present</button>
-                            <button id={absentId} className="absent-button ui big button" onClick={()=>this.handleAbsentButton(presentId,absentId)}>Absent</button>
+                            <button id={absentId} className="absent-button ui big button" onClick={()=>this.handleAbsentButton(presentId,absentId,reg_no)}>Absent</button>
                         </td>
                     </tr>
                 </table>

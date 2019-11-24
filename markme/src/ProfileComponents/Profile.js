@@ -141,11 +141,11 @@ class Profile extends React.Component{
                             hash: `${this.props.location.state.username}`,
                             state: { username:this.props.location.state.username,account_type }
                             }}>
-                        <div className='button-text'>Add New Students</div>
+                        <div className='button-text'>Add New Student</div>
                     </Link>    
                 </div> 
                 <div className="option-element ui big button">
-                    <Link to={{pathname: '/addsem',
+                    <Link to={{pathname: '/addnewsem',
                             hash: `${this.props.location.state.username}`,
                             state: { username:this.props.location.state.username,account_type }
                             }}>
@@ -196,7 +196,7 @@ class Profile extends React.Component{
                 <div>
                     <h3 className="ui header">
                         <i className="birthday cake icon"></i>
-                        D.O.B : {this.state.dob}
+                        D.O.B : {this.state.dob.slice(0,10)}
                     </h3>
                 </div>
                 <div>
@@ -231,7 +231,7 @@ class Profile extends React.Component{
                 <div>
                     <h3 className="ui header">
                         <i className="birthday cake icon"></i>
-                        D.O.B : {this.state.dob}
+                        D.O.B : {this.state.dob.slice(0,10)}
                     </h3>
                 </div>                                                                                            
             </div>

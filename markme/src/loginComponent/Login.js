@@ -103,7 +103,7 @@ class Login extends Component{
         <div className="content ui placeholder segment">
             <div className="main-content ui two column very relaxed stackable grid">
                 <div className="login-column column">
-                <form className="login-section ui form" onSubmit={this.handleLoginSubmit}>
+                <form className="login-section ui form" onSubmit={this.handleLoginSubmit} autoComplete='off'>
                     <div className="field">
                     <label>Username</label>
                     <div className="ui left icon input">
@@ -164,7 +164,7 @@ class Login extends Component{
                 </div>
                 </div>
                 <div className="signup-column middle aligned column">
-                <form className="signup-section ui form" onSubmit={this.handleSignupSubmit}>
+                <form className="signup-section ui form" onSubmit={this.handleSignupSubmit} autoComplete='off'>
                     <div className="field">
                         <label>Email</label>
                         <div className="ui left icon input">

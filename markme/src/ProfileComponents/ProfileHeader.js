@@ -12,7 +12,7 @@ class ProfileHeader extends Component{
         return(
             <div className='menu-section'>
                 <div className='logo'>
-                    <Link to=''><Img src={logo}/></Link>
+                    <Img src={logo}/>
                 </div>
                 <div className='menu-links'>
                     <div className="ui compact menu" style={{ backgroundColor:"#f7f7f7",border:0}}>

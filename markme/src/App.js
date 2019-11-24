@@ -15,6 +15,7 @@ import AddTeacher from './adminComponent/AddTeacher'
 import AddStudent from './adminComponent/AddStudent'
 import AddClass from './adminComponent/AddClass'
 import AddBatch from './adminComponent/AddBatch'
+import NewSem from './adminComponent/NewSem'
 
 const App = ()=>{
     return(
@@ -36,6 +37,7 @@ const App = ()=>{
                     <Route path='/addstudent' component={AddStudent}/>
                     <Route path='/addClass' component={AddClass}/>
                     <Route path='/addbatch' component={AddBatch}/>
+                    <Route path='/addnewsem' component={NewSem}/>
                 </div>
             </BrowserRouter>
     )

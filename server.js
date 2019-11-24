@@ -426,7 +426,6 @@ app.get('/addbatchtoclass',(req,res)=>{
 
 // --> to add new sem
 app.get('/addnewsem',(req,res)=>{
-    const {classID, batchID} = req.query
     const SELECT_QUERY = `CALL add_sem();`;
     connection.query(SELECT_QUERY,(err,results)=>{
         if(err){
