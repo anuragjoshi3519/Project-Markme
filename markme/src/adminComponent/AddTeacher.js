@@ -69,6 +69,11 @@ class AddTeacher extends Component{
                 .catch(err=>console.error(err))
 
                 alert('User successfully added to database')
+                this.props.history.push({
+                    pathname: '/userprofile/',
+                    hash: `${this.props.location.state.username}`,
+                    state: { username:this.props.location.state.username,account:this.props.location.state.account_type }
+                })
             }
             else{
                 alert('Username is already taken, try another one.')
@@ -86,7 +91,7 @@ class AddTeacher extends Component{
                 <br/>
 
                 <main className="addTeacher-form">
-                    <form className="ui form">
+                    <form className="ui form" autoComplete="off">
 
                         <div className="two fields">
                             <div className="field">

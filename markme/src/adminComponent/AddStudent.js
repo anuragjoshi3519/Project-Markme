@@ -17,10 +17,31 @@ class AddStudent extends Component{
             gender : "",
             email : "",
             joiningDate : "",
-            batchID : ""
+            batchID : "",
+            usersInfo:[],
+            batchIDOptions:[]
         }
 
         this.handleAddStudentChange = this.handleAddStudentChange.bind(this)
+    }
+
+    componentDidMount() {
+        this.getUsersInfo()
+        fetch('http://localhost:4000/loadbatch')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({batchIDOptions:response.data})    
+        })
+        .catch(err=>console.error(err))
+    }
+
+    getUsersInfo = ()=>{
+        fetch('http://localhost:4000/users')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({usersInfo:response.data})    
+        })
+        .catch(err=>console.error(err)) 
     }
 
     handleAddStudentChange(event){
@@ -28,6 +49,44 @@ class AddStudent extends Component{
         this.setState({
             [name] : value
         })
+    }
+
+    handleSubmit=(event)=>{
+        event.preventDefault()
+        const {regNo,password, firstName, middleName, lastName, dob, gender, email, phone, joiningDate, batchID,usersInfo} = this.state
+        
+        if(regNo===''||password===''||firstName===''||lastName===''||dob===''||phone===''||gender===''||email===''||joiningDate===''||batchID===''){
+            alert('Please enter missing details')
+        }
+        else{
+            let flag=0
+            let i=0
+            for(i=0;i<usersInfo.length;i+=1){
+                if(regNo===usersInfo[i].username){
+                    flag=1
+                    break
+                }
+            }
+            if(flag===0){
+                fetch(`http://localhost:4000/users/add?username=${regNo}&password=${password}`)
+                .then(response=>response.json())
+                .catch(err=>console.error(err))
+
+                fetch(`http://localhost:4000/addstudent?regNo=${regNo}&firstName=${firstName}&middleName=${middleName}&lastName=${lastName}&dob=${dob}&gender=${gender}&email=${email}&phone=${phone}&joiningDate=${joiningDate}&batchID=${batchID}`)
+                .then(response => response.json())
+                .catch(err=>console.error(err))
+
+                alert('User successfully added to database')
+                this.props.history.push({
+                    pathname: '/userprofile/',
+                    hash: `${this.props.location.state.username}`,
+                    state: { username:this.props.location.state.username,account:this.props.location.state.account_type }
+                })
+            }
+            else{
+                alert('Username is already taken, try another one.')
+            }
+        }
     }
 
     addStudentContent(){
@@ -40,7 +99,7 @@ class AddStudent extends Component{
                 <br/>
 
                 <main className="addTeacher-form">
-                    <form className="ui form">
+                    <form className="ui form" autoComplete='off'>
 
                         <div className="two fields">
                             <div className="field">
@@ -177,14 +236,12 @@ class AddStudent extends Component{
                                     onChange = {this.handleAddStudentChange}
                                 >
                                     <option value="">Select a batch</option>
-                                    <option value="Batch1">Batch1</option>
-                                    <option value="Batch2">Batch2</option>
-                                    <option value="Batch3">Batch3</option>
+                                    {this.state.batchIDOptions.map(ele=><option value={ele.batch_id}>{ele.batch_id}</option>)}
                                 </select>
                             </div>
                         </div>
 
-                        <button className="ui blue submit button" type='submit' style={{marginTop:'2em',width:'40%', marginLeft:'30%', fontSize :'1.2em'}}>Add Student</button>
+                        <button className="ui blue submit button" type='submit' style={{marginTop:'2em',width:'40%', marginLeft:'30%', fontSize :'1.2em'}} onClick={this.handleSubmit} >Add Student</button>
                     </form>
                 </main>
             </div>
