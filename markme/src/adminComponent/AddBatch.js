@@ -116,7 +116,7 @@ class AddBatch extends Component{
     render(){
         return(
             <diV>
-                <LoggedInUserHeader />
+                <LoggedInUserHeader username={this.props.location.state.username} account_type={this.props.location.state.account_type}/>
                 {this.addBatchContent()}
                 <Footer/>
             </diV>
