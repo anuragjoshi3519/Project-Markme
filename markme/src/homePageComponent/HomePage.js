@@ -6,11 +6,6 @@ import BunkAssistDetails from './BunkAssistDetails'
 import ContactCard from './ContactCard'
 import Footer from '../Footer'
 import "../css/homePage.css"
-import AddTeacher from '../adminComponent/AddTeacher'
-import AddStudent from '../adminComponent/AddStudent'
-import AddClass from '../adminComponent/AddClass'
-import AddBatch from '../adminComponent/AddBatch'
-import NewSem from '../adminComponent/NewSem'
 
 class HomePage extends Component{
     componentDidMount() {
