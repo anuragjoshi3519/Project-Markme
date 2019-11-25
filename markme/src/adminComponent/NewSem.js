@@ -10,6 +10,30 @@ class NewSem extends Component{
         }
     }
 
+    handlePositiveButton=()=>{
+        fetch('http://localhost:4000/addnewsem')
+        .then(response => response.json())
+        .then(response=>{
+            this.setState({batchIDOptions:response.data})    
+        })
+        .catch(err=>console.error(err))
+
+        alert('Changes successfully saved')
+        this.props.history.push({
+            pathname: '/userprofile/',
+            hash: `${this.props.location.state.username}`,
+            state: { username:this.props.location.state.username,account:this.props.location.state.account_type }
+        })
+    }
+
+    handleNegativeButton=()=>{
+        this.props.history.push({
+            pathname: '/userprofile/',
+            hash: `${this.props.location.state.username}`,
+            state: { username:this.props.location.state.username,account:this.props.location.state.account_type }
+        })
+    }
+
     newSemContent(){
         return(
             <div className="newSem-section">
@@ -27,8 +51,8 @@ class NewSem extends Component{
                         
                         <br/>
                         <div className="two-sided-button">
-                            <button className="ui button" type='submit' style={{marginTop:'4em',width:'50%', fontSize :'1.35em'}}>Yes, go ahead</button>
-                            <button className="ui primary button" type='submit' style={{marginTop:'4em',width:'50%', marginLeft:'30%', fontSize :'1.35em'}}>No, take me back</button>
+                            <button className="ui orange button" style={{marginTop:'4em',width:'50%', fontSize :'1.35em'}} onClick={this.handlePositiveButton}>Yes, go ahead</button>
+                            <button className="ui primary button" style={{marginTop:'4em',width:'50%', marginLeft:'30%', fontSize :'1.35em'}} onClick={this.handleNegativeButton}>No, take me back</button>
                         </div>
                     </form>
                 </main>

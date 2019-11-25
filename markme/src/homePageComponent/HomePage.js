@@ -20,7 +20,6 @@ class HomePage extends Component{
     render(){
         return(
             <div className='main-div'>
-               {/* <NewSem/>*/}
                 <Header/>
                 <div className='intro-section'>
                     <h1 className='intro-title'>WHAT DO WE DO?</h1>

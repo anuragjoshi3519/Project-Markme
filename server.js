@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:'mark_me'
+    database:'MarkMe'
 })
 
 connection.connect((err)=>{
@@ -426,7 +426,6 @@ app.get('/addbatchtoclass',(req,res)=>{
 
 // --> to add new sem
 app.get('/addnewsem',(req,res)=>{
-    const {classID, batchID} = req.query
     const SELECT_QUERY = `CALL add_sem();`;
     connection.query(SELECT_QUERY,(err,results)=>{
         if(err){
