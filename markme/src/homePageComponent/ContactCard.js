@@ -68,7 +68,7 @@ class ContactCard extends React.Component{
                             <i className="terminal icon"></i>
                         </div>
                     </div>
-                    <button className="ui orange submit button" style={{marginTop:'0.8em',width:'100%'}} onClick={this.handleSubmit}>Send Message</button>
+                    <button className="ui orange submit button" style={{marginTop:'0.8em',width:'100%'}}>Send Message</button>
                     <div style={{display:'none'}} class="thankyou_message">
                     <h2><em>Thanks</em> for contacting us! We will get back to you soon!</h2>
                     </div>
