@@ -22,16 +22,7 @@ SET time_zone = "+00:00";
 -- Database: `mark_me`
 --
 
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `new_sem` ()  BEGIN
-UPDATE batch set sem = sem+1;
-UPDATE class set status = 0 where class_id in (Select class_id from class where status=1);
-END$$
 
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -791,6 +782,17 @@ ALTER TABLE `timetable_content`
   ADD CONSTRAINT `timetable_content_ibfk_8` FOREIGN KEY (`at_fifteen`) REFERENCES `class_timing` (`class_tid`),
   ADD CONSTRAINT `timetable_content_ibfk_9` FOREIGN KEY (`at_sixteen`) REFERENCES `class_timing` (`class_tid`);
 COMMIT;
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_sem` ()  BEGIN
+UPDATE batch set sem = sem+1;
+UPDATE class set status = 0 where class_id in (Select class_id from class where status=1);
+END$$
+
+DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
