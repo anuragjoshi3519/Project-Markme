@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dot-prop": ">=4.2.1",
     "express": "^4.17.1",
-    "mysql": "^2.17.1",
-    "dot-prop": ">=4.2.1"
+    "kind-of": ">=6.0.3",
+    "minimist": ">=1.2.3",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.4"
   }
 }
