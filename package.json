@@ -19,10 +19,15 @@
     "react-sticky-header": "^0.2.0",
     "semantic-ui-react": "^0.88.2"
   },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^8.2.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha --timeout 10000",
     "eject": "react-scripts eject",
     "nodemon": "^2.0.4"
   },
