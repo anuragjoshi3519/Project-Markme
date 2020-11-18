@@ -30,7 +30,7 @@ class Login extends Component{
     }
 
     getUsersInfo = ()=>{
-        fetch('http://localhost:4000/users')
+        fetch('http://localhost:4440/users')
         .then(response => response.json())
         .then(response=>{
             this.setState({usersInfo:response.data})    
@@ -61,7 +61,7 @@ class Login extends Component{
             }
         }
         if(flag===0){
-            fetch(`http://localhost:4000/users/add?username=${username}&password=${password}`)
+            fetch(`http://localhost:4440/users/add?username=${username}&password=${password}`)
             .then(response=>response.json())
             .catch(err=>console.error(err))
 

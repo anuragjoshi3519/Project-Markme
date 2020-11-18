@@ -24,7 +24,7 @@ class Profile extends React.Component{
 
         const {username,account} = this.props.location.state
         if(account==='s'){
-            fetch(`http://localhost:4000/studentprofile?username=${username}`)
+            fetch(`http://localhost:4440/studentprofile?username=${username}`)
             .then(response => response.json())
             .then(response=>{
                 this.setState({
@@ -42,7 +42,7 @@ class Profile extends React.Component{
             .catch(err=>console.error(err))
         }
         else if(account==='t'){
-            fetch(`http://localhost:4000/teacherprofiledata?username=${username}`)
+            fetch(`http://localhost:4440/teacherprofiledata?username=${username}`)
             .then(response => response.json())
             .then(response=>{
                 this.setState({
@@ -62,7 +62,7 @@ class Profile extends React.Component{
 
     getSubjects=()=>{
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/teachersubjects?username=${username}`)
+        fetch(`http://localhost:4440/teachersubjects?username=${username}`)
             .then(response => response.json())
             .then(response=>{
                 this.setState({subjectTeaching:response.data})    

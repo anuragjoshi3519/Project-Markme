@@ -19,14 +19,14 @@ class TeacherMarkAttendance extends Component{
 
     componentDidMount(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/checkattendanceteacher?username=${username}&class_id=${this.state.class_id}`)
+        fetch(`http://localhost:4440/checkattendanceteacher?username=${username}&class_id=${this.state.class_id}`)
         .then(response => response.json())
         .then(response=>{
             this.setState({studentsData:response.data})    
         })
         .catch(err=>console.error(err))
 
-        fetch(`http://localhost:4000/getbatches?username=${username}`)
+        fetch(`http://localhost:4440/getbatches?username=${username}`)
         .then(response => response.json())
         .then(response=>{
             this.setState({batchesTaught:response.data})    
@@ -97,7 +97,7 @@ class TeacherMarkAttendance extends Component{
 
     render(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/checkattendanceteacher?username=${username}&class_id=${this.state.class_id}`)
+        fetch(`http://localhost:4440/checkattendanceteacher?username=${username}&class_id=${this.state.class_id}`)
         .then(response => response.json())
         .then(response=>{
             this.setState({studentsData:response.data})    

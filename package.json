@@ -30,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha --timeout 10000",
+    "test": "mocha",
     "eject": "react-scripts eject",
     "nodemon": "^2.0.4"
   },

@@ -23,21 +23,21 @@ class AddClass extends Component{
     }
 
     componentDidMount(){
-        fetch('http://localhost:4000/loadteacher')
+        fetch('http://localhost:4440/loadteacher')
         .then(response => response.json())
         .then(response=>{
             this.setState({teacherIDOptions:response.data})    
         })
         .catch(err=>console.error(err))
 
-        fetch('http://localhost:4000/loadbatch')
+        fetch('http://localhost:4440/loadbatch')
         .then(response => response.json())
         .then(response=>{
             this.setState({batchIDOptions:response.data})    
         })
         .catch(err=>console.error(err))
 
-        fetch('http://localhost:4000/loadclass')
+        fetch('http://localhost:4440/loadclass')
         .then(response => response.json())
         .then(response=>{
             this.setState({classIDOptions:response.data})    
@@ -69,11 +69,11 @@ class AddClass extends Component{
                 }
             }
             if(flag===0){
-                fetch(`http://localhost:4000/addclass?classID=${classID}&subjectName=${subjectName}&teacherID=${teacherID}&program=${program}&taughtInSem=${taughtInSem}&conductionYear=${conductionYear}`)
+                fetch(`http://localhost:4440/addclass?classID=${classID}&subjectName=${subjectName}&teacherID=${teacherID}&program=${program}&taughtInSem=${taughtInSem}&conductionYear=${conductionYear}`)
                 .then(response=>response.json())
                 .catch(err=>console.error(err))
 
-                fetch(`http://localhost:4000/addbatchtoclass?classID=${classID}&batchID=${batchID}`)
+                fetch(`http://localhost:4440/addbatchtoclass?classID=${classID}&batchID=${batchID}`)
                 .then(response => response.json())
                 .catch(err=>console.error(err))
 

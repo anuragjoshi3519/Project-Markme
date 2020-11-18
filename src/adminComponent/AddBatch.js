@@ -17,7 +17,7 @@ class AddBatch extends Component{
 
     componentDidMount(){
 
-        fetch('http://localhost:4000/loadbatch')
+        fetch('http://localhost:4440/loadbatch')
         .then(response => response.json())
         .then(response=>{
             this.setState({batchIDOptions:response.data})    
@@ -48,7 +48,7 @@ class AddBatch extends Component{
                 }
             }
             if(flag===0){
-                fetch(`http://localhost:4000/addbatch?batchID=${batchID}&program=${program}`)
+                fetch(`http://localhost:4440/addbatch?batchID=${batchID}&program=${program}`)
                 .then(response=>response.json())
                 .catch(err=>console.error(err))
 

@@ -28,7 +28,7 @@ class AddTeacher extends Component{
     }
 
     getUsersInfo = ()=>{
-        fetch('http://localhost:4000/users')
+        fetch('http://localhost:4440/users')
         .then(response => response.json())
         .then(response=>{
             this.setState({usersInfo:response.data})    
@@ -60,11 +60,11 @@ class AddTeacher extends Component{
                 }
             }
             if(flag===0){
-                fetch(`http://localhost:4000/adduser?teacherID=${teacherID}&password=${password}`)
+                fetch(`http://localhost:4440/adduser?teacherID=${teacherID}&password=${password}`)
                 .then(response=>response.json())
                 .catch(err=>console.error(err))
 
-                fetch(`http://localhost:4000/addteacher?teacherID=${teacherID}&firstName=${firstName}&middleName=${middleName}&lastName=${lastName}&dob=${dob}&gender=${gender}&email=${email}&phone=${phone}&joiningDate=${joiningDate}`)
+                fetch(`http://localhost:4440/addteacher?teacherID=${teacherID}&firstName=${firstName}&middleName=${middleName}&lastName=${lastName}&dob=${dob}&gender=${gender}&email=${email}&phone=${phone}&joiningDate=${joiningDate}`)
                 .then(response => response.json())
                 .catch(err=>console.error(err))
 

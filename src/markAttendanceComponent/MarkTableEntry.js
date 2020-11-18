@@ -17,7 +17,7 @@ class MarkTableEntry extends Component
     }
 
     handlePresentButton=()=>{
-        fetch(`http://localhost:4000/markattendance?reg_no=${this.state.reg_no}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
+        fetch(`http://localhost:4440/markattendance?reg_no=${this.state.reg_no}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
         .then(response => response.json())
         .catch(err=>console.error(err))
     }

@@ -17,14 +17,14 @@ class MarkAttendance extends Component{
 
     componentDidMount(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/getbatches?username=${username}`)
+        fetch(`http://localhost:4440/getbatches?username=${username}`)
         .then(response => response.json())
         .then(response=>{
             this.setState({batchesTaught:response.data})    
         })
         .catch(err=>console.error(err)) 
 
-        fetch(`http://localhost:4000/studentlistforattendance?class_id='${this.state.class_id}'`)
+        fetch(`http://localhost:4440/studentlistforattendance?class_id='${this.state.class_id}'`)
         .then(response => response.json())
         .then(response=>{
             this.setState({studentsData:response.data})    
@@ -36,12 +36,12 @@ class MarkAttendance extends Component{
         const username = this.props.location.state.username
 
         for(let i=0;i<this.state.presentStudents.length;i+=1){
-            fetch(`http://localhost:4000/markattendance?reg_no=${this.state.presentStudents[i]}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
+            fetch(`http://localhost:4440/markattendance?reg_no=${this.state.presentStudents[i]}&class_id=${this.state.class_id}&entry=P&no_of_hours=${this.state.no_of_hours}`)
             .then(response => response.json())
             .catch(err=>console.error(err))      
         }
 
-        fetch(`http://localhost:4000/updateclasses?class_id='${this.state.class_id}'&no_of_hours=${this.state.no_of_hours}`)
+        fetch(`http://localhost:4440/updateclasses?class_id='${this.state.class_id}'&no_of_hours=${this.state.no_of_hours}`)
         .then(response => response.json())
         .catch(err=>console.error(err))
 
@@ -133,7 +133,7 @@ class MarkAttendance extends Component{
     }
 
     render(){
-        fetch(`http://localhost:4000/studentlistforattendance?class_id='${this.state.class_id}'`)
+        fetch(`http://localhost:4440/studentlistforattendance?class_id='${this.state.class_id}'`)
         .then(response => response.json())
         .then(response=>{
             this.setState({studentsData:response.data})    

@@ -10,7 +10,7 @@ class CheckAttendance extends Component{
 
     componentDidMount(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/checkattendancestudent?username=${username}`)
+        fetch(`http://localhost:4440/checkattendancestudent?username=${username}`)
         .then(response => response.json())
         .then(response=>{
             this.setState({attendance:response.data})    

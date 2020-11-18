@@ -27,7 +27,7 @@ class AddStudent extends Component{
 
     componentDidMount() {
         this.getUsersInfo()
-        fetch('http://localhost:4000/loadbatch')
+        fetch('http://localhost:4440/loadbatch')
         .then(response => response.json())
         .then(response=>{
             this.setState({batchIDOptions:response.data})    
@@ -36,7 +36,7 @@ class AddStudent extends Component{
     }
 
     getUsersInfo = ()=>{
-        fetch('http://localhost:4000/users')
+        fetch('http://localhost:4440/users')
         .then(response => response.json())
         .then(response=>{
             this.setState({usersInfo:response.data})    
@@ -68,11 +68,11 @@ class AddStudent extends Component{
                 }
             }
             if(flag===0){
-                fetch(`http://localhost:4000/users/add?username=${regNo}&password=${password}`)
+                fetch(`http://localhost:4440/users/add?username=${regNo}&password=${password}`)
                 .then(response=>response.json())
                 .catch(err=>console.error(err))
 
-                fetch(`http://localhost:4000/addstudent?regNo=${regNo}&firstName=${firstName}&middleName=${middleName}&lastName=${lastName}&dob=${dob}&gender=${gender}&email=${email}&phone=${phone}&joiningDate=${joiningDate}&batchID=${batchID}`)
+                fetch(`http://localhost:4440/addstudent?regNo=${regNo}&firstName=${firstName}&middleName=${middleName}&lastName=${lastName}&dob=${dob}&gender=${gender}&email=${email}&phone=${phone}&joiningDate=${joiningDate}&batchID=${batchID}`)
                 .then(response => response.json())
                 .catch(err=>console.error(err))
 

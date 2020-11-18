@@ -19,7 +19,7 @@ class PreviousAttendance extends Component{
 
     componentDidMount(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/previousattendance?username=${username}&sem=${this.state.sem}`)
+        fetch(`http://localhost:4440/previousattendance?username=${username}&sem=${this.state.sem}`)
             .then(response => response.json())
             .then(response=>{
                 this.setState({attendance:response.data})    
@@ -47,7 +47,7 @@ class PreviousAttendance extends Component{
 
     render(){
         const username = this.props.location.state.username
-        fetch(`http://localhost:4000/previousattendance?username=${username}&sem=${this.state.sem}`)
+        fetch(`http://localhost:4440/previousattendance?username=${username}&sem=${this.state.sem}`)
             .then(response => response.json())
             .then(response=>{
                 this.setState({attendance:response.data})    

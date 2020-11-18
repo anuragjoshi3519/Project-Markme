@@ -11,7 +11,7 @@ class NewSem extends Component{
     }
 
     handlePositiveButton=()=>{
-        fetch('http://localhost:4000/addnewsem')
+        fetch('http://localhost:4440/addnewsem')
         .then(response => response.json())
         .then(response=>{
             this.setState({batchIDOptions:response.data})    
