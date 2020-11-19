@@ -28,11 +28,10 @@ app.get('/users', (req, res) => {
     const QUERY = 'SELECT * FROM user';
     connection.query(QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
-                status: "success",
                 data: results
             })
         }
@@ -44,7 +43,7 @@ app.get('/userprofile', (req, res) => {
     const QUERY = `SELECT first_name, last_name, account_type, program, phone, email, date_of_birth, sem from student join user on student.username = user.username join batch on student.batch_id = batch.batch_id where reg_no = '${username}' ;`;
     connection.query(QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -60,10 +59,10 @@ app.get('/users/add', (req, res) => {
     const QUERY = `INSERT INTO user (username,password,account_type) VALUES('${username}','${password}','s')`
     connection.query(QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err);
         }
         else {
-            return res.send('Successfully signed up')
+            return res.json({status:200,message:'Successfully signed up'})
         }
     })
 })
@@ -79,7 +78,7 @@ app.get('/studentprofile', (req, res) => {
     const SELECT_QUERY = `SELECT first_name, middle_name, last_name, account_type, program, phone, email, date_of_birth, sem from student join user on student.username = user.username join batch on student.batch_id = batch.batch_id where reg_no = '${username}'`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -100,7 +99,7 @@ app.get('/teacherprofiledata', (req, res) => {
     const SELECT_QUERY = `SELECT first_name, middle_name, last_name, account_type, phone, email, date_of_birth from teacher join user on teacher.username = user.username where teacher_id = '${username}'`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -120,7 +119,7 @@ app.get('/teachersubjects', (req, res) => {
     const SELECT_QUERY = `SELECT subject_name from class where teacher_id = '${username}' and status=1`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -140,7 +139,7 @@ app.get('/previousattendance', (req, res) => {
     const SELECT_QUERY = `SELECT subject_name, number_of_classes, percentage from attendance_percentage join class on attendance_percentage.class_id = class.class_id where reg_no = '${username}' and taught_in_semester = '${sem}'`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -157,7 +156,7 @@ app.get('/checkattendancestudent', (req, res) => {
     const SELECT_QUERY = `SELECT subject_name, number_of_classes, sum(no_of_hours) as classes_attended from running_classes join class on running_classes.class_id = class.class_id where reg_no = '${username}' and entry = 'P' group by class.class_id;`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -177,7 +176,7 @@ app.get('/getbatches', (req, res) => {
     const SELECT_QUERY = `SELECT class_id, subject_name, program from class where teacher_id = '${username}' and status = 1`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -192,7 +191,7 @@ app.get('/checkattendanceteacher', (req, res) => {
     const SELECT_QUERY = `SELECT student.reg_no as reg_no, first_name, last_name, sum(no_of_hours) as class_attended, number_of_classes from running_classes join student on running_classes.reg_no = student.reg_no join class on running_classes.class_id = class.class_id where class.teacher_id = '${username}' and class.class_id = '${class_id}' and entry='P' group by student.reg_no;`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -211,7 +210,7 @@ app.get('/studentlistforattendance', (req, res) => {
     const SELECT_QUERY = `select reg_no, first_name, last_name from student join batch_attends_class on student.batch_id = batch_attends_class.batch_id where class_id = ${class_id}`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -226,7 +225,7 @@ app.get('/markattendance', (req, res) => {
     const SELECT_QUERY = `INSERT INTO attendance VALUES (NULL, '${reg_no}', '${class_id}', '${entry}', '${no_of_hours}');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -241,7 +240,7 @@ app.get('/updateclasses', (req, res) => {
     const SELECT_QUERY = `UPDATE class SET number_of_classes = (${no_of_hours} + number_of_classes) where class_id = ${class_id}`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -256,13 +255,13 @@ app.get('/updateclasses', (req, res) => {
 
 
 //-> to add a teacher
-// 1. add user --> before this, check if the same username exists in the database, if yes then return error
+// 1. add user --> before this, check if the same username exists in the database, if yes then return res.json(err)or
 app.get('/adduser', (req, res) => {
     const { teacherID, password } = req.query
     const SELECT_QUERY = `INSERT INTO user VALUES ('${teacherID}', '${password}', 't');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -271,13 +270,13 @@ app.get('/adduser', (req, res) => {
         }
     })
 })
-// 2. add teacher --> before this, check if the same teacherID exists in the database, if yes then return error
+// 2. add teacher --> before this, check if the same teacherID exists in the database, if yes then return res.json(err)or
 app.get('/addteacher', (req, res) => {
     const { teacherID, firstName, middleName, lastName, dob, gender, email, phone, joiningDate } = req.query
     const SELECT_QUERY = `INSERT INTO teacher VALUES ('${teacherID}', '${teacherID}', '${firstName}','${middleName}','${lastName}','${dob}','${gender}','${email}','${phone}',NULL,'${joiningDate}');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -297,7 +296,7 @@ app.get('/addbatch', (req, res) => {
     const SELECT_QUERY = `INSERT INTO batch VALUES ('${batchID}', '${program}', '1');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -317,7 +316,7 @@ app.get('/loadbatch', (req, res) => {
     const SELECT_QUERY = `SELECT batch_id from batch`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -327,13 +326,13 @@ app.get('/loadbatch', (req, res) => {
     })
 })
 //1. call '/adduser' first, and then do the next one
-//2. addStudent -> before this, check if the same reg_no exists in the database, if yes then return error
+//2. addStudent -> before this, check if the same reg_no exists in the database, if yes then return res.json(err)or
 app.get('/addstudent', (req, res) => {
     const { regNo, firstName, middleName, lastName, dob, gender, email, phone, joiningDate, batchID } = req.query
     const SELECT_QUERY = `INSERT INTO student VALUES ('${regNo}', '${regNo}', '${firstName}','${middleName}','${lastName}','${dob}','${gender}','${email}','${phone}',NULL,'${joiningDate}','${batchID}');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -353,7 +352,7 @@ app.get('/loadteacher', (req, res) => {
     const SELECT_QUERY = `SELECT teacher_id from teacher`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -367,7 +366,7 @@ app.get('/loadbatch', (req, res) => {
     const SELECT_QUERY = `SELECT batch_id from batch`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -381,7 +380,7 @@ app.get('/loadclass', (req, res) => {
     const SELECT_QUERY = `SELECT class_id from class`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -391,13 +390,13 @@ app.get('/loadclass', (req, res) => {
     })
 })
 
-//3. add class --> check if same classID exists, if yes then return error
+//3. add class --> check if same classID exists, if yes then return res.json(err)or
 app.get('/addclass', (req, res) => {
     const { classID, subjectName, teacherID, program, taughtInSem, conductionYear } = req.query
     const SELECT_QUERY = `INSERT INTO class VALUES ('${classID}', '${subjectName}', '${teacherID}','${program}','${taughtInSem}','${conductionYear}','0','1');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -412,7 +411,7 @@ app.get('/addbatchtoclass', (req, res) => {
     const SELECT_QUERY = `INSERT INTO batch_attends_class VALUES ('${classID}','${batchID}');`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
@@ -430,7 +429,7 @@ app.get('/addnewsem', (req, res) => {
     const SELECT_QUERY = `CALL new_sem();`;
     connection.query(SELECT_QUERY, (err, results) => {
         if (err) {
-            return res.send(err)
+            return res.json(err)
         }
         else {
             return res.json({
